@@ -4,7 +4,6 @@ from unittest import TestCase
 class TestCreateAccount(TestCase):
 
     def setup(self):
-
       """
          When the createAccount command is entered, it takes two arguments:
          -Account name
