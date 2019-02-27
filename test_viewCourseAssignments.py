@@ -11,7 +11,6 @@ class viewCourseAssignments(TestCase):
     For search the the assignments from other professors
     The command for view my schedule :viewMySchedule
     Takes 2 argument for search
-    search UserName
    """
 
 def test_command_password_was_correct
@@ -28,7 +27,7 @@ def test_command_can_not_view_my_schedule
 
 
 def test_command_cannot_find_name
-        self.assertEquals(self.ui.command("search username"), "Can't fine the name of the professor, retype it")
+        self.assertEquals(self.ui.command("search userName"), "Can't fine the name of the professor, retype it")
 
 
 def test_command_username_not_typed
