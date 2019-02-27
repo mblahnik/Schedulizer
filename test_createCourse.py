@@ -9,7 +9,7 @@ class TestCreateCourse(TestCase):
         When the createCourse command is entered, it takes one argument:
         -Course Name 
         If the course name matches a database entry a then the course is not created 
-        and an error message is displayed
+        and an error message is displayed and some other stuff
     """
     def test_command_createCourse_success(self):
         self.assertEquals(self.ui.command("createCourse courseName"), "Course successfully created")
