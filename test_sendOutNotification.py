@@ -9,13 +9,8 @@ class sendOutNotification(TestCase):
    When the user type the command sendOutNotification
    It will ask the enter the login information first
     Once you successfully login
-    You need to choose 3 options before you send the notification
-   option 1.  to send email all
-   option 2. to send email to specific group
-   option 3. to send email to one
-   Once you choose the option, you will type sendNotification
-   You could type the command sendNotification just for all people
-   type sendNotification "one email address or multiple addresses"
+   It takes 3 argument
+   sendNotification userName sendOne|sendAll|sendSpecific
 
    """
 
@@ -26,17 +21,6 @@ def test_command_password_was_correct
 def test_command_password_was_incorrect
     self.assertEquals(self.ui.command("password"), "Password is incorrect, there are 3 more chances to type it")
 
-
-
-def test_command_choose_option_to_send_specific
-        self.assertEquals(self.ui.command("sendSpecific"), "Your notification will be send to specific people")
-
-
-def test_command_choose_option_to_send_one
-        self.assertEquals(self.ui.command("sendOne"), "notification was sent to one")
-
-def test_command_choose_option_to_send_all
-        self.assertEquals(self.ui.command("sendToAll"), "Your notification will be sent to all"
 
  def test_command_nofitication_was_sent
 
