@@ -9,7 +9,7 @@ class viewCourseAssignments(TestCase):
    When the user type the command viewCourseAssignments
    User need to enter the password to see the schedule
     For search the the assignments from other professors
-
+    The command for view my schedule :viewMySchedule
     Takes 2 argument for search
     search UserName
    """
