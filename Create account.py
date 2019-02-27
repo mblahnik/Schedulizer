@@ -1,1 +1,2 @@
-class createAccount
+class createAccount:
+    pass
