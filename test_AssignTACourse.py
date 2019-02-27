@@ -37,3 +37,6 @@ class TestAssignTACourse(TestCase):
 
     def test_command_AssignTACourse_schedulingConflict(self):
         self.assertEqual(self.ui.command("AssignTACourse accountName  courseNumber"), "Scheduling conflict.")
+
+    def test_command_AssignTACourse_noArgs(self):
+        self.assertEqual(self.ui.command("AssignTACourse"), "Missing TA username and course number.")
