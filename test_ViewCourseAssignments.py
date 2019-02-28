@@ -3,6 +3,7 @@ from unittest import TestCase
 class test_ViewCourseAssignments(TestCase):
 
     def setUp(self):
+        pass
 
 
 

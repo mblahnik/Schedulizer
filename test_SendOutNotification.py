@@ -3,7 +3,7 @@ from unittest import TestCase
 class test_sendOutNotification(TestCase):
 
     def setUp(self):
-
+        pass
 
 
 """
