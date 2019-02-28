@@ -12,7 +12,7 @@ class test_viewCourseAssignments(TestCase):
        The command for view my schedule :viewMySchedule
     For searching the the assignments for other professors;
     It takes 2 arguments to search;
-    search userName
+    search accountName
    """
 
 def test_command_password_was_correct
