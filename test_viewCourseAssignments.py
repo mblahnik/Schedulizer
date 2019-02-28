@@ -15,23 +15,23 @@ class test_viewCourseAssignments(TestCase):
     search accountName
    """
 
-def test_command_password_was_correct
+def test_command_password_was_correct(self):
        self.assertEquals(self.ui.command("password"), "You have just entered sendOutNotification system")
 
 
-def test_command_password_was_incorrect
+def test_command_password_was_incorrect(self):
     self.assertEquals(self.ui.command("password"), "Password is incorrected, there are 3 more chances to type it")
 
-def test_command_password_was_incorrect_3times
+def test_command_password_was_incorrect_3times(self):
     self.assertEquals(self.ui.command("password"), "Passwrod is incorrected for 3 times contact to administrator")
 
-def test_command_can_not_view_my_schedule
+def test_command_can_not_view_my_schedule(self):
     self.assertEquals(self.ui.command("viewMySchedule"), "The schedule hasn't been uploaded yet")
 
 
-def test_command_cannot_find_name
+def test_command_cannot_find_name(self):
     self.assertEquals(self.ui.command("search accountName"), "Can't fine the name of the professor, retype it")
 
 
-def test_command_username_not_typed
+def test_command_username_not_typed(self):
         self.assertEquals(self.ui.command("search"), "Type the username")
