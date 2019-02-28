@@ -6,11 +6,11 @@ class test_viewCourseAssignments(TestCase):
   def setup(self):
 
    """
-   When the user type the command viewCourseAssignments
-   User need to enter the password to see the schedule
-    For searching the the assignments from other professors
-    The command for view my schedule :viewMySchedule
-    Takes 2 argument for search
+   When the user type the command viewCourseAssignments,
+   User needs to enter the password to see the schedule
+       The command for view my schedule :viewMySchedule
+    For searching the the assignments for other professors;
+    It takes 2 arguments to search;
     search userName
    """
 
