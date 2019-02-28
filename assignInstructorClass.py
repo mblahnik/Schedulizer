@@ -1,1 +1,1 @@
-class assignInstructorClass
+class assignInstructorClass:

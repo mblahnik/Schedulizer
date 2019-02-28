@@ -1,1 +1,2 @@
-class sendOutNotification 
+class sendOutNotification:
+    pass
