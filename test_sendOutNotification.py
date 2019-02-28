@@ -18,7 +18,7 @@ sendNotification userNames -s
  To send notification to specific users.
  UserNames can be written as userName, userName form.
 
-sendNotification  username
+sendNotification  userName
 
 to send notification to one person
    """
@@ -33,10 +33,16 @@ def test_command_password_was_incorrect
 
  def test_command_nofitication_was_not_sent
 
-         self.assertEquals(self.ui.command("sendNotification"), "type the username")
+         self.assertEquals(self.ui.command("sendNotification userName"), "We weren't able to send a notification")
+         
+
+ def test_command_nofitication_was_not_sent_all
+
+         self.assertEquals(self.ui.command("sendNotification userName -a"), "We weren't able to send a notification")
+
+ def test_command_nofitication_was_not_sent_specific
+
+         self.assertEquals(self.ui.command("sendNotification userNames -s"), "We weren't able to send a notification")
 
 def test_command_no_argument
             self.assertEquals(self.ui.command("sendNotification"), "Please type the email that you want to sent")
-
- def test_command_nofitication
-            self.assertEquals(self.ui.command("sendNotification"), "notification was succesfully sent")
