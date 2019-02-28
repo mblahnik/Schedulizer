@@ -9,19 +9,18 @@ class test_sendOutNotification(TestCase):
    When the user type the command sendOutNotification
    It will ask you the password first
     Once you successfully login
-   It takes 2-4 arguments
+   It takes 2-3 arguments
 
    sendNotification -a
    To send notification to all users.
 
-sendNotification userName. -s
-for the list of username parts name the username as many as you want to type
+sendNotification userNames -s
+ To send notification to specific users.
+ UserNames can be written as userName, userName form.
 
 sendNotification  username
 
-sendNotification -a
-
-   -a to all users
+to send notification to one person
    """
 
 def test_command_password_was_correct
