@@ -3,7 +3,7 @@ from unittest import TestCase
 class test_sendOutNotification(TestCase):
 
     def setUp(self):
-        self.ui.command("createAccount accountName")
+
 
 
 """

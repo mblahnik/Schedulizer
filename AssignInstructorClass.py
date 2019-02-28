@@ -1,0 +1,2 @@
+class AssignInstructorClass:
+    pass

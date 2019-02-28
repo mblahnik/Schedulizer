@@ -1,2 +1,2 @@
-class viewCourseAssignments:
+class ViewCourseAssignments:
     pass
