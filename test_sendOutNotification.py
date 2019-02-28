@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-class sendOutNotification(TestCase):
+class test_sendOutNotification(TestCase):
 
 
   def setup(self):
