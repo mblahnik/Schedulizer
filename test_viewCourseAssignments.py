@@ -2,10 +2,11 @@ from unittest import TestCase
 
 class test_viewCourseAssignments(TestCase):
 
+    def setUp(self):
+        self.ui.command("createAccount accountName")
 
-  def setup(self):
 
-   """
+"""
    When the user type the command viewCourseAssignments,
    User needs to enter the password to see the schedule
        The command for view my schedule :viewMySchedule
@@ -29,7 +30,7 @@ def test_command_can_not_view_my_schedule
 
 
 def test_command_cannot_find_name
-    self.assertEquals(self.ui.command("search userName"), "Can't fine the name of the professor, retype it")
+    self.assertEquals(self.ui.command("search accountName"), "Can't fine the name of the professor, retype it")
 
 
 def test_command_username_not_typed
