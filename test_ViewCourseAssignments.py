@@ -1,9 +1,9 @@
 from unittest import TestCase
 
-class test_viewCourseAssignments(TestCase):
+class test_ViewCourseAssignments(TestCase):
 
     def setUp(self):
-        self.ui.command("createAccount accountName")
+
 
 
 """
@@ -16,8 +16,7 @@ class test_viewCourseAssignments(TestCase):
    """
 
 def test_command_password_was_correct(self):
-       self.assertEquals(self.ui.command("password"), "You have just entered sendOutNotification system")
-
+    self.assertEquals(self.ui.command("password"), "You have just entered sendOutNotification system")
 
 def test_command_password_was_incorrect(self):
     self.assertEquals(self.ui.command("password"), "Password is incorrected, there are 3 more chances to type it")
@@ -28,10 +27,9 @@ def test_command_password_was_incorrect_3times(self):
 def test_command_can_not_view_my_schedule(self):
     self.assertEquals(self.ui.command("viewMySchedule"), "The schedule hasn't been uploaded yet")
 
-
 def test_command_cannot_find_name(self):
     self.assertEquals(self.ui.command("search accountName"), "Can't fine the name of the professor, retype it")
 
 
 def test_command_username_not_typed(self):
-        self.assertEquals(self.ui.command("search"), "Type the username")
+    self.assertEquals(self.ui.command("search"), "Type the username")
