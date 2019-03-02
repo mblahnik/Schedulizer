@@ -5,11 +5,14 @@ class TestAccessAllData(TestCase):
     pass
 
     def setUp(self):
-        pass
+        self.ui.command("AccessAllData name")
 
     """
     When the AccessAllData command is entered, it takes one argument, 
     - name
+    
+    If no name is entered, an error is displayed 
+    If user does not exist, an error is displayed
     
     """
 
