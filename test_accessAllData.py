@@ -5,7 +5,7 @@ class TestAccessAllData(TestCase):
     pass
 
     def setUp(self):
-        self.ui.command("AccessAllData name")
+        self.ui.command("createAccount name")
 
     """
     When the AccessAllData command is entered, it takes one argument, 
