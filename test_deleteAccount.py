@@ -2,10 +2,9 @@ from unittest import TestCase
 
 
 class TestDeleteAccount(TestCase):
-    pass
 
     def setUp(self):
-        self.ui.command("deleteAccount name title")
+        self.ui.command("createAccount name title")
 
     """
     When the deleteAccount command is entered, it takes two arguments, 
@@ -29,5 +28,5 @@ class TestDeleteAccount(TestCase):
     def test_command_deleteAccount_no_args(self):
         self.assertEquals(self.ui.command("deleteAccount"), "Please enter a name and title")
 
-    def test_command_deleteAccount_doesnotexist(self):
+    def test_command_deleteAccount_doesNotExist(self):
         self.assertEqual(self.ui.command("deleteAccount name title"), "Account does not exist")

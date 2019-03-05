@@ -1,8 +1,10 @@
 from unittest import TestCase
 
+
 class TestAssignTALab(TestCase):
     def setup(self):
         self.ui.command("createAccount name title")
+        self.ui.command("createCourse labName")
 
         """
             When AssignTALab command is entered, it takes two arguments:

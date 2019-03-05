@@ -15,7 +15,8 @@ class TestViewPublicData(TestCase):
     def test_command_vpd_success(self):
         self.assertEquals(self.ui.command("vpd accountName"), "Name: accountName"
                                                               "email: accountEmail"
-                                                              "add more information later")
+                                                              "Office: officeNumber"
+                                                              "Office Hours: officeHours")
         
     def test_command_vps_no_account(self):
         self.assertEqual(self.ui.command("vpd invalidAccount"), "Account does not exist")
