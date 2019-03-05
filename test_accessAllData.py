@@ -13,7 +13,8 @@ class TestAccessAllData(TestCase):
     
     If no name is entered, an error is displayed 
     If user does not exist, an error is displayed
-    
+    Alex - I believe AccessAllData should print all of the data for an account - the password
+    rather than just saying "account found" it should probably print off all of the data in an easy to read format 
     """
 
     def test_command_AccessAllData_success(self):

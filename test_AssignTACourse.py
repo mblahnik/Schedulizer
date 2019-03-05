@@ -17,6 +17,7 @@ class TestAssignTACourse(TestCase):
             --TA username is invalid or missing
             --Course number is invalid or missing
             --No arguments
+        Alex - We don't have worry about scheduling conflicts for our program. That test is unneeded
     """
 
     def test_command_AssignTACourse_success(self):

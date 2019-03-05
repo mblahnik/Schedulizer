@@ -6,7 +6,6 @@ class TestViewTAAssignments(TestCase):
     def setUp(self):
         self.ui.command("ViewTAAssignments classNumber")
 
-
     """
     When the ViewTAAssignments command is entered, it takes one argument
     - class Number 
