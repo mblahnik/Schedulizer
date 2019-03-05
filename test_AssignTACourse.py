@@ -4,6 +4,7 @@ class TestAssignTACourse(TestCase):
 
     def setup(self):
         self.ui.command("createAccount name title")
+        self.ui.command("createCourse")
 
         """
             When AssignTACourse command is entered, it takes two arguments:
@@ -21,7 +22,7 @@ class TestAssignTACourse(TestCase):
         self.assertEqual(self.ui.command("AssignTACourse accountName  courseNumber"), "Assignment successful")
 
     def test_command_AssignTACourse_missingTA(self):
-        self.assertEqual(self.ui.command("createAccount title"), "Missing TA Username.")
+        self.assertEqual(self.ui.command("AssignTACourse courseNumber"), "Missing TA Username.")
 
     def test_command_AssignTACourse_invalidTA(self):
         self.assertEqual(self.ui.command("AssignTACourse accountName  courseNumber"), "Invalid TA username.")
