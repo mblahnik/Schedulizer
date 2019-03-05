@@ -1,21 +1,23 @@
 from unittest import TestCase
 
+
 class TestAssignTACourse(TestCase):
 
     def setup(self):
         self.ui.command("createAccount name title")
+        self.ui.command("createCourse labName")
 
-        """
-            When AssignTACourse command is entered, it takes two arguments:
-                --TA username
-                --Course number
-            Assignment may fail if:
-                --Scheduling conflict for TA
-                --Max TAs assigned to course
-                --TA username is invalid or missing
-                --Course number is invalid or missing
-                --No arguments
-        """
+    """
+        When AssignTACourse command is entered, it takes two arguments:
+            --TA username
+            --Course number
+        Assignment may fail if:
+            --Scheduling conflict for TA
+            --Max TAs assigned to course
+            --TA username is invalid or missing
+            --Course number is invalid or missing
+            --No arguments
+    """
 
     def test_command_AssignTACourse_success(self):
         self.assertEqual(self.ui.command("AssignTACourse accountName  courseNumber"), "Assignment successful")
