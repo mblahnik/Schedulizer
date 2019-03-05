@@ -16,6 +16,7 @@ class TestViewPublicData(TestCase):
         self.assertEquals(self.ui.command("vpd accountName"), "Name: accountName"
                                                               "email: accountEmail"
                                                               "Office: officeNumber"
+                                                              "Phone: officePhone"
                                                               "Office Hours: officeHours")
         
     def test_command_vps_no_account(self):
