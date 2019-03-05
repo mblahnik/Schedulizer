@@ -1,5 +1,6 @@
 from unittest import TestCase
 
+
 class TestAssignTALab(TestCase):
     def setup(self):
         self.ui.command("createAccount name title")
