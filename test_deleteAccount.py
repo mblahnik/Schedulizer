@@ -13,7 +13,7 @@ class TestDeleteAccount(TestCase):
     If a name or title is missing, an error message is displayed
     If the account that the user is trying to delete does not exist, an error 
     message is displayed. 
-    
+    Alex- I feel like this command should only need one argument, the name. 
     """
 
     def test_command_deleteAccount(self):

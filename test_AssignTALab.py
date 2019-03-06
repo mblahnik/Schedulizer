@@ -16,6 +16,7 @@ class TestAssignTALab(TestCase):
                 --TA username is invalid or missing
                 --Lab number is invalid or missing
                 --No arguments
+            Alex- We don't have to worry about schedule conflicts. 
         """
 
     def test_command_AssignTALab_success(self):

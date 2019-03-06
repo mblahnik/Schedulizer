@@ -12,6 +12,13 @@ class test_AssignInstructorClass(TestCase):
 
     To assign the class; it takes 3 arguments
     assign className classNumber
+    Alex - Logging in with a password is a completely different feature that we currently do not support. I think
+    that if we did have a login command it would be preformed in the setup section rather than the tests. Example
+    self.ui.command("createAccount accountName title")
+    self.ui.command("editAccount accountName password newPassword")
+    self.ui.command("login accountName newPassword")
+    These tests should only test assigning an instructor to a class and really nothing else.
+    The same goes for  viewing schedule and assigned classes.
     """
 
     def test_command_password_was_correct(self):

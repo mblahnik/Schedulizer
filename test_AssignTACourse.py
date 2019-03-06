@@ -5,25 +5,26 @@ class TestAssignTACourse(TestCase):
 
     def setup(self):
         self.ui.command("createAccount name title")
-        self.ui.command("createCourse")
+        self.ui.command("createCourse labName")
 
-        """
-            When AssignTACourse command is entered, it takes two arguments:
-                --TA username
-                --Course number
-            Assignment may fail if:
-                --Scheduling conflict for TA
-                --Max TAs assigned to course
-                --TA username is invalid or missing
-                --Course number is invalid or missing
-                --No arguments
-        """
+    """
+        When AssignTACourse command is entered, it takes two arguments:
+            --TA username
+            --Course number
+        Assignment may fail if:
+            --Scheduling conflict for TA
+            --Max TAs assigned to course
+            --TA username is invalid or missing
+            --Course number is invalid or missing
+            --No arguments
+        Alex - We don't have worry about scheduling conflicts for our program. That test is unneeded
+    """
 
     def test_command_AssignTACourse_success(self):
         self.assertEqual(self.ui.command("AssignTACourse accountName  courseNumber"), "Assignment successful")
 
     def test_command_AssignTACourse_missingTA(self):
-        self.assertEqual(self.ui.command("AssignTACourse courseNumber"), "Missing TA Username.")
+        self.assertEqual(self.ui.command("createAccount title"), "Missing TA Username.")
 
     def test_command_AssignTACourse_invalidTA(self):
         self.assertEqual(self.ui.command("AssignTACourse accountName  courseNumber"), "Invalid TA username.")
