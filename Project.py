@@ -1,4 +1,4 @@
 class Project:
 
-    def command(userString):
+    def command(self, userString):
         return ""
