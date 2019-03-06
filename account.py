@@ -10,4 +10,27 @@ class account(ABC):
         self.address = ""
         self.passWord = ""
 
+    def getName(self):
+        return self.accountName
+
+    def setName(self,newName):
+        self.accountName = newName
+
+    def setEmail(self):
+        pass
+
+    def getEmail(self):
+        pass
+
+    def setAddress(self):
+        pass
+
+    def getAddress(self):
+        pass
+
+    def setPassWord(self):
+        pass
+
+    def getPassWord(self):
+        pass
 

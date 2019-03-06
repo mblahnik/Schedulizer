@@ -23,13 +23,13 @@ class TestProject(TestCase):
         self.assertEqual(self.Project.command("createAccount accountName cashier"), "Please enter a valid title")
 
     def test_command_createAccount_no_name(self):
-        self.assertEquals(self.Project.command("createAccount title"), "Need to specify a name")
+        self.assertEqual(self.Project.command("createAccount title"), "Need to specify a name")
 
     def test_command_createAccount_no_args(self):
-        self.assertEquals(self.Project.command("createAccount"), "Please enter a name and title")
+        self.assertEqual(self.Project.command("createAccount"), "Please enter a name and title")
 
     def test_command_createAccount_already_exists(self):
-        self.assertEquals(self.Project.command("createAccount accountName title"), "Account already exists")
+        self.assertEqual(self.Project.command("createAccount accountName title"), "Account already exists")
 
         """
            When the createCourse command is entered, it takes one argument:
@@ -37,16 +37,57 @@ class TestProject(TestCase):
            If the course name matches a database entry a then the course is not created 
            and an error message is displayed and some other stuff
            Alex - I think this is all we need.
+           Natasha - I think createCourse needs to include course numbers, days of the week and time periods (or online), 
+           as arguments. Even though we aren't dealing with scheduling conflicts, times of courses are important
+           course information. I don't think they should be allowed to be created without that information.
        """
 
     def test_command_createCourse_success(self):
-        self.assertEquals(self.Project.command("createCourse courseName"), "Course successfully created")
+        self.assertEqual(self.Project.command("createCourse courseName"), "Course successfully created")
 
     def test_command_createCourse_no_args(self):
-        self.assertEquals(self.Project.command("createCourse "), "Please specify a course name")
+        self.assertEqual(self.Project.command("createCourse "), "Please specify a course name")
 
     def test_command_createCourse_course_exists(self):
         self.assertEqual(self.Project.command("createCourse courseName"), "Course already exists")
+
+        """
+           When the createLab command is entered, it takes the following arguments:
+           -Course number associated with
+           -Lab section number
+           -Day(s) of week
+           -Begin time
+           -End time
+           If the lab already exists, a new lab is not created. If arguments are missing, return error. If the 
+           associated course is online, a lab cannot be created for it.
+       """
+
+    def test_command_createLab_success(self):
+        self.assertEqual(self.Project.command("createLab courseNumber labSection day begin end"), "Course successfully created")
+
+    def test_command_createLab_no_args(self):
+        self.assertEqual(self.Project.command("createLab"), "Please specify a course number, lab section number, and meeting times")
+
+    def test_command_createLab_lab_exists(self):
+        self.assertEqual(self.Project.command("createLab courseNumber labSection day begin end"), "Lab already exists")
+
+    def test_command_createLab_missing_course(self):
+        self.assertEqual(self.Project.command("createLab labSection day begin end"), "Please specify the course the lab is associated with.")
+
+    def test_command_createLab_missing_section(self):
+        self.assertEqual(self.Project.command("createLab courseNumber day begin end"), "Please specify the lab section number.")
+
+    def test_command_createLab_missing_day(self):
+        self.assertEqual(self.Project.command("createLab courseNumber labSection begin end"), "Please specify meeting day.")
+
+    def test_command_createLab_missing_begin(self):
+        self.assertEqual(self.Project.command("createLab courseNumber labSection day end"), "Please specify begin time.")
+
+    def test_command_createLab_missing_end(self):
+        self.assertEqual(self.Project.command("createLab courseNumber labSection day begin"), "Please specify end time.")
+
+    def test_command_createLab_invalid_lab(self):
+        self.assertEqual(self.Project.command("createLab courseNumber labSection day begin end"), "Lab cannot be created for an online course.")
 
     """
         Edit Information 
@@ -194,22 +235,22 @@ class TestProject(TestCase):
     """
 
     def test_command_password_was_correct(self):
-        self.assertEquals(self.Project.command("password"), "You have just entered sendOutNotification system")
+        self.assertEqual(self.Project.command("password"), "You have just entered sendOutNotification system")
 
     def test_command_password_was_incorrect(self):
-        self.assertEquals(self.Project.command("password"), "Password is incorrect, there are 3 more chances to type it")
+        self.assertEqual(self.Project.command("password"), "Password is incorrect, there are 3 more chances to type it")
 
     def test_command_notification_was_not_sent(self):
-        self.assertEquals(self.Project.command("sendNotification accountName"), "We weren't able to send a notification")
+        self.assertEqual(self.Project.command("sendNotification accountName"), "We weren't able to send a notification")
 
     def test_command_notification_was_not_sent_all(self):
-        self.assertEquals(self.Project.command("sendNotification accountName -a"), "We weren't able to send a notification")
+        self.assertEqual(self.Project.command("sendNotification accountName -a"), "We weren't able to send a notification")
 
     def test_command_notification_was_not_sent_specific(self):
-        self.assertEquals(self.Project.command("sendNotification accountNames -s"), "We weren't able to send a notification")
+        self.assertEqual(self.Project.command("sendNotification accountNames -s"), "We weren't able to send a notification")
 
     def test_command_no_argument(self):
-        self.assertEquals(self.Project.command("sendNotification"), "Please type the email that you want to sent")
+        self.assertEqual(self.Project.command("sendNotification"), "Please type the email that you want to sent")
 
         """
            When the deleteAccount command is entered, it takes two arguments, 
@@ -218,20 +259,21 @@ class TestProject(TestCase):
            If a name or title is missing, an error message is displayed
            If the account that the user is trying to delete does not exist, an error 
            message is displayed. 
-           Alex- I feel like this command should only need one argument, the name. 
+           Alex- I feel like this command should only need one argument, the name.
+           Natasha - I agree that this command should only require the username. 
         """
 
     def test_command_deleteAccount(self):
-            self.assertEquals(self.Project.command("deleteAccount name title"), "Account successfully deleted")
+            self.assertEqual(self.Project.command("deleteAccount name title"), "Account successfully deleted")
 
     def test_command_deleteAccount_no_title(self):
-            self.assertEquals(self.Project.command("deleteAccount name"), "Need to specify a title")
+            self.assertEqual(self.Project.command("deleteAccount name"), "Need to specify a title")
 
     def test_command_deleteAccount_no_name(self):
-            self.assertEquals(self.Project.command("deleteAccount title"), "Need to specify a name")
+            self.assertEqual(self.Project.command("deleteAccount title"), "Need to specify a name")
 
     def test_command_deleteAccount_no_args(self):
-            self.assertEquals(self.Project.command("deleteAccount"), "Please enter a name and title")
+            self.assertEqual(self.Project.command("deleteAccount"), "Please enter a name and title")
 
     def test_command_deleteAccount_doesNotExist(self):
             self.assertEqual(self.Project.command("deleteAccount name title"), "Account does not exist")
@@ -244,6 +286,7 @@ class TestProject(TestCase):
        If user does not exist, an error is displayed
        Alex - I believe AccessAllData should print all of the data for an account - the password
        rather than just saying "account found" it should probably print off all of the data in an easy to read format 
+       Natasha - I also think that it should display all of the data.
     """
 
     def test_command_AccessAllData_success(self):
@@ -268,31 +311,34 @@ class TestProject(TestCase):
         self.ui.command("login accountName newPassword")
         These tests should only test assigning an instructor to a class and really nothing else.
         The same goes for  viewing schedule and assigned classes.
+        Natasha - Logging in should be separate. Maybe we'll figure that out with design. Ideally, no one would be
+        able to access the application until they have signed in and would only be able to run commands based on 
+        their privilege.
         """
 
     def test_command_password_was_correct(self):
-        self.assertEquals(self.Project.command("password"), "You have just entered sendOutNotification system")
+        self.assertEqual(self.Project.command("password"), "You have just entered sendOutNotification system")
 
     def test_command_password_was_incorrect(self):
-        self.assertEquals(self.Project.command("password"), "Password is incorrect,there are 3 more chances to type it")
+        self.assertEqual(self.Project.command("password"), "Password is incorrect,there are 3 more chances to type it")
 
     def test_command_can_not_view_schedule(self):
-        self.assertEquals(self.Project.command("viewSchedule"), "The schedule hasn't been uploaded yet")
+        self.assertEqual(self.Project.command("viewSchedule"), "The schedule hasn't been uploaded yet")
 
     def test_command_can_not_view_assigned(self):
-        self.assertEquals(self.Project.command("numOfAssigned"), "Can't view number of classed that are assigned to you")
+        self.assertEqual(self.Project.command("numOfAssigned"), "Can't view number of classed that are assigned to you")
 
     def test_command_class_number_invalid(self):
-        self.assertEquals(self.Project.command("assign className"), "type the class number")
+        self.assertEqual(self.Project.command("assign className"), "type the class number")
 
     def test_command_class_name_invalid(self):
-        self.assertEquals(self.Project.command("assign classNumber"), "type the class number")
+        self.assertEqual(self.Project.command("assign classNumber"), "type the class number")
 
     def test_command_class_name_number_invalid(self):
-        self.assertEquals(self.Project.command("assign"), "type the class number & name")
+        self.assertEqual(self.Project.command("assign"), "type the class number & name")
 
     def test_command_conflicted_class(self):
-        self.assertEquals(self.Project.command("assign className classNumber"), "This class was already assigned")
+        self.assertEqual(self.Project.command("assign className classNumber"), "This class was already assigned")
 
     """
            When AssignTACourse command is entered, it takes two arguments:
@@ -339,7 +385,7 @@ class TestProject(TestCase):
         """
 
     def test_command_vpd_success(self):
-        self.assertEquals(self.Project.command("vpd accountName"), "Name: accountName"
+        self.assertEqual(self.Project.command("vpd accountName"), "Name: accountName"
                                                               "email: accountEmail"
                                                               "Office: officeNumber"
                                                               "Phone: officePhone"
@@ -413,22 +459,22 @@ class TestProject(TestCase):
        """
 
     def test_command_password_was_correct(self):
-        self.assertEquals(self.Project.command("password"), "You have just entered sendOutNotification system")
+        self.assertEqual(self.Project.command("password"), "You have just entered sendOutNotification system")
 
     def test_command_password_was_incorrect(self):
-        self.assertEquals(self.Project.command("password"), "Password is incorrect, there are 3 more chances to type it")
+        self.assertEqual(self.Project.command("password"), "Password is incorrect, there are 3 more chances to type it")
 
     def test_command_password_was_incorrect_3times(self):
-        self.assertEquals(self.Project.command("password"), "Password is incorrect for 3 times contact to administrator")
+        self.assertEqual(self.Project.command("password"), "Password is incorrect for 3 times contact to administrator")
 
     def test_command_can_not_view_my_schedule(self):
-        self.assertEquals(self.Project.command("viewMySchedule"), "The schedule hasn't been uploaded yet")
+        self.assertEqual(self.Project.command("viewMySchedule"), "The schedule hasn't been uploaded yet")
 
     def test_command_cannot_find_name(self):
-        self.assertEquals(self.Project.command("search accountName"), "Can't fine the name of the professor, retype it")
+        self.assertEqual(self.Project.command("search accountName"), "Can't fine the name of the professor, retype it")
 
     def test_command_username_not_typed(self):
-        self.assertEquals(self.Project.command("search"), "Type the username")
+        self.assertEqual(self.Project.command("search"), "Type the username")
 
     """
        When the ViewTAAssignments command is entered, it takes one argument

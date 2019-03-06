@@ -4,7 +4,7 @@ from unittest import TestCase
 class TestAssignTALab(TestCase):
     def setup(self):
         self.ui.command("createAccount name title")
-        self.ui.command("createCourse labName")
+        self.ui.command("createLab")
 
         """
             When AssignTALab command is entered, it takes two arguments:
@@ -23,7 +23,7 @@ class TestAssignTALab(TestCase):
         self.assertEqual(self.ui.command("AssignTACourse accountName  labNumber"), "Assignment successful")
 
     def test_command_AssignTALab_missingTA(self):
-        self.assertEqual(self.ui.command("createAccount title"), "Missing TA Username.")
+        self.assertEqual(self.ui.command("AssignTACourse labNumber"), "Missing TA Username.")
 
     def test_command_AssignTALab_invalidTA(self):
         self.assertEqual(self.ui.command("AssignTACourse accountName  labNumber"), "Invalid TA username.")
@@ -35,7 +35,7 @@ class TestAssignTALab(TestCase):
         self.assertEqual(self.ui.command("AssignTACourse accountName  labNumber"), "Invalid lab number.")
 
     def test_command_AssignTALab_Maximum(self):
-        self.assertEqual(self.ui.command("AssignTACourse accountName  labNumber"), "TA already assigned to lab.")
+        self.assertEqual(self.ui.command("AssignTACourse accountName  labNumber"), "TA already assigned to this lab.")
 
     def test_command_AssignTALab_schedulingConflict(self):
         self.assertEqual(self.ui.command("AssignTACourse accountName  labNumber"), "Scheduling conflict.")
