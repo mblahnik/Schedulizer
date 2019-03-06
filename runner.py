@@ -1,12 +1,12 @@
 import unittest
-from Project import Project
-from test_project import TestProject
+from instructor import instructor
+from test_instructor import TestInstructor
 def main():
     """Runs the unit tests"""
 
     suite = unittest.TestSuite()
 
-    suite.addTests(unittest.makeSuite(TestProject))
+    suite.addTests(unittest.makeSuite(TestInstructor))
 
     result = unittest.TextTestRunner(verbosity=1).run(suite)
 
