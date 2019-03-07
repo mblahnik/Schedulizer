@@ -22,7 +22,6 @@ class test_sendOutNotification(TestCase):
     sendNotification  accountName
 
     to send notification to one person
-
     """
 
     def test_command_password_was_correct(self):

@@ -1,5 +1,6 @@
 import unittest
 
+
 class findaccounts(unittest.TestCase):
     def setUp(self):
         self.ui.command("create username Title Name Pawssowrd Phone Adress Email")
@@ -13,7 +14,13 @@ class findaccounts(unittest.TestCase):
         self.ui.command("change username emailadress NewEmailAdress")
         self.ui.command("add class username classname")
         self.ui.command("remove class username classname")
-
+    """
+    Alex- These tests should test whatever command we are using to edit account information. "find" is currently
+    not a command that we are supporting. 
+    - Now that I look at this, its kind of big. Maybe we should think about breaking this up.  
+    This also isn't properly setup for the unittest framework but I dont think that matters since we are not
+    running it
+    """
     def test_find_command_correct(self):
         self.assertEqual(self.ui.command("find username"), "account exists")
 
@@ -22,7 +29,6 @@ class findaccounts(unittest.TestCase):
 
     def test_find_command_invalid_username(self):
             self.assertEqual(self.ui.command("find InexistantAccount"), "no such account exists")
-
 
     def test_change_phone_command_correct(self):
         self.assertEqual(self.ui.command("change username phone newPhoneNumber"), "phone number has been changed")
@@ -39,7 +45,6 @@ class findaccounts(unittest.TestCase):
     def test_change_phone_command_wrong_number_format(self):
         self.assertEqual(self.ui.command("change username phone IncorectNumberFormat"), "Error changing number")
 
-
     def test_change_adress_command_correct(self):
         self.assertEqual(self.ui.command("change username adress NewAdress"), "adress has been changed")
 
@@ -51,7 +56,6 @@ class findaccounts(unittest.TestCase):
 
     def test_change_adress_command_no_username(self):
         self.assertEqual(self.ui.command("change adress NewAdress "), "Error changing adress")
-
 
     def test_change_name_command_correct(self):
         self.assertEqual(self.ui.command("change username name NewName"), "Name has been changed")
@@ -65,7 +69,6 @@ class findaccounts(unittest.TestCase):
     def test_change_name_command_no_username(self):
         self.assertEqual(self.ui.command("change name NewName "), "Error changing name")
 
-
     def test_change_title_command_correct(self):
         self.assertEqual(self.ui.command("change username title NewTitle"), "adress has been changed")
 
@@ -77,7 +80,6 @@ class findaccounts(unittest.TestCase):
 
     def test_change_title_command_no_username(self):
         self.assertEqual(self.ui.command("change title NewTitle "), "Error changing adress")
-
 
     def test_change_Hphone_command_correct(self):
         self.assertEqual(self.ui.command("change username Hphone newPhoneNumber"), "Hphone number has been changed")
@@ -94,7 +96,6 @@ class findaccounts(unittest.TestCase):
     def test_change_Hphone_command_wrong_number_format(self):
         self.assertEqual(self.ui.command("change username Hphone IncorectNumberFormat"), "Error changing Hnumber")
 
-
     def test_addclass_command_correct(self):
         self.assertEqual(self.ui.command("add class username classname"), "class added")
 
@@ -109,7 +110,6 @@ class findaccounts(unittest.TestCase):
 
     def test_addclass_command_invalid_class(self):
         self.assertEqual(self.ui.command("add class username addedClassname"), "class has already been added")
-
 
     def test_removeclass_command_correct(self):
         self.assertEqual(self.ui.command("remove class username classname"), "class removed")
