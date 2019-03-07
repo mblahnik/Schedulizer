@@ -13,6 +13,12 @@ class test_ViewCourseAssignments(TestCase):
     For searching the the assignments for other professors;
     It takes 2 arguments to search;
     search accountName
+    Alex - Logging in with a password is a completely different feature that we currently do not support. I think
+    that if we did have a login command it would be preformed in the setup section rather than the tests. Example
+    self.ui.command("createAccount accountName title")
+    self.ui.command("editAccount accountName password newPassword")
+    self.ui.command("login accountName newPassword")
+    The command you should be focusing on here is viewCourseAssignments 
     """
 
     def test_command_password_was_correct(self):

@@ -10,6 +10,9 @@ class TestCreateAccount(TestCase):
         -Account name
         -title
         If the account being created already exists in the database an error message is displayed
+        Alex- I wrote this but now that I think about it the setup section isn't correct. Its assuming that
+        the create account command already words in the first place. I would need some other way to add an account to 
+        the database or whatever to check against
     """
     def test_command_createAccount_success(self):
         self.assertEquals(self.ui.command("createAccount accountName  title"), "Account successfully created")
