@@ -9,6 +9,8 @@ class TestProject(TestCase):
     -Account Title
     If the account name is already present in the database then the account is not created and
     and error message is displayed
+    Elizabeth -- don't we need to include a bunch more arguments in this now? Or are we leaving it up
+    to the user to fill in all their info after their account is created?
     """
     def setUp(self):
         self.Project = Project()
@@ -34,22 +36,51 @@ class TestProject(TestCase):
         """
            When the createCourse command is entered, it takes one argument:
            -Course Name 
+           -Course Number 
+           -Days of week
+           -Time of class (start end)
            If the course name matches a database entry a then the course is not created 
            and an error message is displayed and some other stuff
            Alex - I think this is all we need.
            Natasha - I think createCourse needs to include course numbers, days of the week and time periods (or online), 
            as arguments. Even though we aren't dealing with scheduling conflicts, times of courses are important
            course information. I don't think they should be allowed to be created without that information.
+           Elizabeth -- I added some fields. 
        """
 
     def test_command_createCourse_success(self):
-        self.assertEqual(self.Project.command("createCourse courseName"), "Course successfully created")
+        self.assertEqual(self.Project.command("createCourse courseName courseNumber daysOfWeek start end"),
+                         "Course successfully created")
+
+    def test_command_createCourse_no_course_name(self):
+        self.assertEqual(self.Project.command("createCourse courseNumber daysOfWeek start end"),
+                         "You must enter a course name to create a course")
+
+    def test_command_createCourse_no_course_number(self):
+        self.assertEqual(self.Project.command("createCourse courseName daysOfWeek start end"),
+                         "You must enter a course number to create a course")
+
+    def test_command_createCourse_no_daysOfWeek(self):
+        self.assertEqual(self.Project.command("createCourse courseName courseNumber start end"),
+                         "You must enter a meeting days to create a course")
+
+    def test_command_createCourse_no_start_time(self):
+        self.assertEqual(self.Project.command("createCourse courseName courseNumber daysOfWeek end"),
+                         "You must enter a start time to create a course")
+
+    def test_command_createCourse_no_end_time(self):
+        self.assertEqual(self.Project.command("createCourse courseName courseNumber daysOfWeek start"),
+                         "You must enter an end time to create a course")
 
     def test_command_createCourse_no_args(self):
-        self.assertEqual(self.Project.command("createCourse "), "Please specify a course name")
+        self.assertEqual(self.Project.command("createCourse"), "Please specify a course name, course number, "
+                                                               "meeting days, and start and end times")
 
     def test_command_createCourse_course_exists(self):
-        self.assertEqual(self.Project.command("createCourse courseName"), "Course already exists")
+        self.assertEqual(self.Project.command("createCourse courseName courseNumber daysOfWeek start end"),
+                         "Course already exists")
+
+
 
         """
            When the createLab command is entered, it takes the following arguments:
@@ -96,6 +127,9 @@ class TestProject(TestCase):
        - Now that I look at this, its kind of big. Maybe we should think about breaking this up.  
        This also isn't properly setup for the unittest framework but I dont think that matters since we are not
        running it
+       Elizabeth - I think these tests go beyond the scope of the base command -- really what should be tested here 
+       is simply the "editInformation" command, I don't think we need to go in depth and make separate commands for
+       editing all the different fields at this time.  
        """
 
     def test_find_command_correct(self):
@@ -232,6 +266,8 @@ class TestProject(TestCase):
     sendNotification  accountName
 
     to send notification to one person
+    
+    Elizabeth -- we don't need to worry about password access here - just the "sendOutNotification" command 
     """
 
     def test_command_password_was_correct(self):
@@ -261,6 +297,8 @@ class TestProject(TestCase):
            message is displayed. 
            Alex- I feel like this command should only need one argument, the name.
            Natasha - I agree that this command should only require the username. 
+           Elizabeth - that's fine it can be changed, I was thinking it would be easier to locate the 
+           account given what type of account it is 
         """
 
     def test_command_deleteAccount(self):
@@ -281,12 +319,16 @@ class TestProject(TestCase):
     """
        When the AccessAllData command is entered, it takes one argument, 
        - name
-
        If no name is entered, an error is displayed 
        If user does not exist, an error is displayed
        Alex - I believe AccessAllData should print all of the data for an account - the password
        rather than just saying "account found" it should probably print off all of the data in an easy to read format 
        Natasha - I also think that it should display all of the data.
+       Elizabeth -- Of course it needs to display all data - I was thinking that could happen via a different 
+       medium though (the command would return the "accountfound" response then some background method would display 
+       the data), not just a long string representation of all the data as the response.  Either way is cool. 
+       --we also might want to have this take a title field too, for ease of finding the data later on, assuming we
+       are storing TAs separately. 
     """
 
     def test_command_AccessAllData_success(self):
@@ -314,6 +356,8 @@ class TestProject(TestCase):
         Natasha - Logging in should be separate. Maybe we'll figure that out with design. Ideally, no one would be
         able to access the application until they have signed in and would only be able to run commands based on 
         their privilege.
+        Elizabath -- I don't think we should worry about extra commands like numOfAssigned and viewSchedule here - just
+        the assignClass command 
         """
 
     def test_command_password_was_correct(self):
@@ -399,6 +443,8 @@ class TestProject(TestCase):
 
         """
         Edit own contact information starts here
+        Elizabeth -- I think that all the specific commands are out of our scope, we should just be testing the 
+        "editMyInformation" command
         """
 
     def test_change_phone_command_correct(self):
@@ -456,6 +502,8 @@ class TestProject(TestCase):
        self.ui.command("editAccount accountName password newPassword")
        self.ui.command("login accountName newPassword")
        The command you should be focusing on here is viewCourseAssignments 
+       Elizabeth -- we don't need to test for passwords here or have a search command, just the "viewCourseAssignments"
+       command 
        """
 
     def test_command_password_was_correct(self):
