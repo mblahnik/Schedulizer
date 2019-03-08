@@ -46,6 +46,7 @@ class TestProject(TestCase):
            as arguments. Even though we aren't dealing with scheduling conflicts, times of courses are important
            course information. I don't think they should be allowed to be created without that information.
            Elizabeth -- I added some fields. 
+           Eonshik Kim - I think it would be better if we add more information like description of courses, name of instructors and the units of the courses.
        """
 
     def test_command_createCourse_success(self):
@@ -91,6 +92,7 @@ class TestProject(TestCase):
            -End time
            If the lab already exists, a new lab is not created. If arguments are missing, return error. If the 
            associated course is online, a lab cannot be created for it.
+           Eonshik Kim - I think it contains too complex commands. User could be confused.
        """
 
     def test_command_createLab_success(self):
@@ -130,6 +132,8 @@ class TestProject(TestCase):
        Elizabeth - I think these tests go beyond the scope of the base command -- really what should be tested here 
        is simply the "editInformation" command, I don't think we need to go in depth and make separate commands for
        editing all the different fields at this time.  
+       Eonshik - I think this part is kind of Epic as a user story, it needs to be break into smaller pieces.
+       and the argument username would be better to change accountName to make the argument command consistent.
        """
 
     def test_find_command_correct(self):
@@ -268,13 +272,11 @@ class TestProject(TestCase):
     to send notification to one person
     
     Elizabeth -- we don't need to worry about password access here - just the "sendOutNotification" command 
+    
+    Eonshik Kim - I removed password part.
     """
 
-    def test_command_password_was_correct(self):
-        self.assertEqual(self.Project.command("password"), "You have just entered sendOutNotification system")
 
-    def test_command_password_was_incorrect(self):
-        self.assertEqual(self.Project.command("password"), "Password is incorrect, there are 3 more chances to type it")
 
     def test_command_notification_was_not_sent(self):
         self.assertEqual(self.Project.command("sendNotification accountName"), "We weren't able to send a notification")
@@ -299,6 +301,8 @@ class TestProject(TestCase):
            Natasha - I agree that this command should only require the username. 
            Elizabeth - that's fine it can be changed, I was thinking it would be easier to locate the 
            account given what type of account it is 
+           Eonshik Kim - I think the argument "name" need be changed "userName" to make the the argument command consistent.
+           
         """
 
     def test_command_deleteAccount(self):
@@ -329,6 +333,8 @@ class TestProject(TestCase):
        the data), not just a long string representation of all the data as the response.  Either way is cool. 
        --we also might want to have this take a title field too, for ease of finding the data later on, assuming we
        are storing TAs separately. 
+       Eonshik Kim - I think it looks good. I don't think accessAllData need to be complex. 
+       I think the argument "name" need be changed "userName" to make the the argument command consistent.
     """
 
     def test_command_AccessAllData_success(self):
@@ -358,13 +364,9 @@ class TestProject(TestCase):
         their privilege.
         Elizabath -- I don't think we should worry about extra commands like numOfAssigned and viewSchedule here - just
         the assignClass command 
+        Eonshik Kim - password part removed
         """
 
-    def test_command_password_was_correct(self):
-        self.assertEqual(self.Project.command("password"), "You have just entered sendOutNotification system")
-
-    def test_command_password_was_incorrect(self):
-        self.assertEqual(self.Project.command("password"), "Password is incorrect,there are 3 more chances to type it")
 
     def test_command_can_not_view_schedule(self):
         self.assertEqual(self.Project.command("viewSchedule"), "The schedule hasn't been uploaded yet")
@@ -504,16 +506,10 @@ class TestProject(TestCase):
        The command you should be focusing on here is viewCourseAssignments 
        Elizabeth -- we don't need to test for passwords here or have a search command, just the "viewCourseAssignments"
        command 
+       Eonshik Kim - password part removed
        """
 
-    def test_command_password_was_correct(self):
-        self.assertEqual(self.Project.command("password"), "You have just entered sendOutNotification system")
 
-    def test_command_password_was_incorrect(self):
-        self.assertEqual(self.Project.command("password"), "Password is incorrect, there are 3 more chances to type it")
-
-    def test_command_password_was_incorrect_3times(self):
-        self.assertEqual(self.Project.command("password"), "Password is incorrect for 3 times contact to administrator")
 
     def test_command_can_not_view_my_schedule(self):
         self.assertEqual(self.Project.command("viewMySchedule"), "The schedule hasn't been uploaded yet")
