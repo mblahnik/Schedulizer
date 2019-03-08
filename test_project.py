@@ -316,6 +316,7 @@ class TestProject(TestCase):
            Elizabeth - that's fine it can be changed, I was thinking it would be easier to locate the 
            account given what type of account it is 
            Eonshik - I think the argument "name" need be changed "userName" to make the the argument command consistent.
+          Don't we need to consider the case if there are two users have the same user name?
            
         """
 
