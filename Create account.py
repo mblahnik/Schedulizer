@@ -1,2 +1,0 @@
-class createAccount:
-    pass
