@@ -1,2 +1,0 @@
-class AssignTALab:
-    pass
