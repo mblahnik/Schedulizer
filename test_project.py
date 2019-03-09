@@ -537,6 +537,7 @@ class TestProject(TestCase):
 
 
         """
+        
         Edit own contact information starts here
         Elizabeth -- I think that all the specific commands are out of our scope, we should just be testing the 
         "editMyInformation" command
@@ -625,7 +626,7 @@ class TestProject(TestCase):
        
        """
 
-    def test_command_view(self):
+    def test_command_viewCourseAssignments(self):
         self.assertEqual(self.Project.command("viewCourseAssignments"), "Here are the assignments")
 
     """

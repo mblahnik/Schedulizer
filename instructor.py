@@ -1,5 +1,13 @@
 from account import account
-
+"""
+Instructors can: 
+-Send out notifications to their TAs 
+-Edit their own contact information
+-Assign TAs to lab sections 
+-View TA assignments 
+-Read Public contact information
+-View Course assignments 
+"""
 
 class instructor(account):
 
