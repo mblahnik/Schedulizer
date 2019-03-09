@@ -5,31 +5,13 @@ from instructor import instructor
 class TestInstructor(TestCase):
 
     def setUp(self):
-        self.instructor1 = instructor("Bob", "Instructor")
+        self.instructor1 = instructor()
 
-    def test_getname(self):
-        self.assertEqual(self.instructor1.getName(), "Bob")
-
-    def test_setName(self):
-        self.instructor1.setName("Joe")
-        self.assertEqual(self.instructor1.getName(), "Joe")
-
-    def test_getPhone(self):
-        pass
-    def test_getEmail(self):
-        pass
-
-    def test_getAddress(self):
-        pass
-
-    def test_getOfficeHours(self):
-        pass
-
-    def test_getOfficePhone(self):
-        pass
-
-    def test_getCourses(self):
-        pass
-
+    def test_addCouse(self):
+        self.assertEqual(len(self.instructor1.courses), 0)
+        self.instructor1.addcourse("CPS361")
+        self.assertEqual(len(self.instructor1.courses), 1)
+        self.instructor1.addcourse("CPS101")
+        self.assertEqual(len(self.instructor1.courses), 2)
 
 
