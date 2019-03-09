@@ -1,12 +1,12 @@
 import unittest
 from account import account
-from test_account import TestAccount
+from test_instructor import TestInstructor
 def main():
     """Runs the unit tests"""
 
     suite = unittest.TestSuite()
 
-    suite.addTests(unittest.makeSuite(TestAccount))
+    suite.addTests(unittest.makeSuite(TestInstructor))
 
     result = unittest.TextTestRunner(verbosity=1).run(suite)
 
