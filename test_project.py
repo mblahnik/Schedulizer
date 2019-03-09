@@ -299,17 +299,11 @@ class TestProject(TestCase):
         self.assertEqual(self.Project.command("change emailadress NewEmailAdress "), "Error changing emailadress")
 
     """
-    sendOutNotification command 
-    When the sendOutNotification command is entered it takes 2-3 arguments: 
-
-    -sendNotification -a
-    To send notification to all users.
-
-    -sendNotification accountNames -s
-    To send notification to specific users.
-
-    -sendNotification  accountName
-    to send notification to one person
+       When the sendOutNotification command is entered, it takes two arguments, 
+            - accountName
+            - -a
+            "-a" command is used for to sending notification for all users.
+           If accountName or -a is missing, an error message is displayed.
     
     Elizabeth -- we don't need to worry about password access here - just the "sendOutNotification" command 
     
