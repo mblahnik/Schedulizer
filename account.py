@@ -1,14 +1,16 @@
-from abc import ABC, abstractmethod
+class account():
 
+    def __init__(self,accountName = ""):
+        self.accountName = accountName
+        self.accountInfo = {
+            "address": "",
+            "Home Phone": "",
+            "title": 0,
+            "Email": "",
+            "Office Phone": "",
+            "Office hours": ""
 
-class account(ABC):
-
-    def __init__(self,accountname,title):
-        self.accountName = accountname
-        self.title = title
-        self.eEmail = ""
-        self.address = ""
-        self.passWord = ""
+        }
 
     def getName(self):
         return self.accountName
@@ -16,21 +18,16 @@ class account(ABC):
     def setName(self,newName):
         self.accountName = newName
 
-    def setEmail(self):
-        pass
+    def setInfo(self, info, newInfo):
+        if info == "title":
+            raise(ValueError("Cannot change title"))
+        if info in self.accountInfo:
+            self.accountInfo[info] = newInfo
+        else:
+            raise(ValueError("Not a valid field"))
 
-    def getEmail(self):
-        pass
+    def getInfo(self, info):
+        return self.accountInfo[info]
 
-    def setAddress(self):
-        pass
-
-    def getAddress(self):
-        pass
-
-    def setPassWord(self):
-        pass
-
-    def getPassWord(self):
-        pass
-
+    def __str__(self):
+        return self.accountName
