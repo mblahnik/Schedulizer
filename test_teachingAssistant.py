@@ -1,10 +1,11 @@
 from unittest import TestCase
-from teachingAssistant import taAccount
+from teachingAssistant import teachingAssistant
 
-class TestTaAccount(TestCase):
+
+class TestTeachingAssistant(TestCase):
 
     def setUp(self):
-        self.TA1 = taAccount()
+        self.TA1 = teachingAssistant()
 
     def test_addlab(self):
         self.assertEqual(len(self.TA1.labs), 0)

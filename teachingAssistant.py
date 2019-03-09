@@ -7,7 +7,7 @@ TAs can:
 -View TA assignments 
 """
 
-class taAccount(instructor):
+class teachingAssistant(instructor):
 
     def __init__(self, name=""):
         super().__init__(name)
