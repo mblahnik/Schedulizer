@@ -11,6 +11,9 @@ class TestProject(TestCase):
         and error message is displayed
         Elizabeth -- don't we need to include a bunch more arguments in this now? Or are we leaving it up
         to the user to fill in all their info after their account is created?
+        Natasha -- We may need to discuss this, but I think it makes sense for the supervisor and administrator
+        to just create accounts using a username, the person's actual first and last name, email, and title. Then
+        instructors and TAs can be notified that their account was created by the system/person who created it. 
     """
     def setUp(self):
         self.Project = Project()
@@ -53,7 +56,9 @@ class TestProject(TestCase):
            Elizabeth -- I added some fields. 
            Eonshik  - I think it would be better if we add more information like description of courses,
             name of instructors and the units of the courses.
-            
+                Natasha -- Eonshik: I don't think it would make sense to have the descriptions or units, since this is 
+                only to assign instructors and TAs, really, and keep track of users. That information is really only
+                useful to students who will not be using the program.
        """
 
     def test_command_createCourse_success(self):
@@ -156,6 +161,10 @@ class TestProject(TestCase):
        editing all the different fields at this time.  
        Eonshik - I think this part is kind of Epic as a user story, it needs to be break into smaller pieces.
        and the argument username would be better to change accountName to make the argument command consistent.
+       Natasha -- This command should probably be called editAccount or something. These "change" tests look the
+       same as others below. This is a different command that can edit everything and only supervisors and administrators
+       can perform this command. It should probably have an error that says "Permission denied: must be supervisor or admin"
+       if the user is an instructor or TA.
        """
 
 
@@ -205,16 +214,16 @@ class TestProject(TestCase):
         self.assertEqual(self.Project.command("change username phone IncorectNumberFormat"), "Error changing number")
 
     def test_change_address_command_correct(self):
-        self.assertEqual(self.Project.command("change username adress NewAdress"), "adress has been changed")
+        self.assertEqual(self.Project.command("change username address NewAddress"), "address has been changed")
 
-    def test_change_address_command_no_adress(self):
-        self.assertEqual(self.Project.command("change username adress"), "Error changing adress")
+    def test_change_address_command_no_address(self):
+        self.assertEqual(self.Project.command("change username address"), "Error changing address")
 
     def test_change_address_command_invalid_username(self):
-        self.assertEqual(self.Project.command("change InexistantAccount adress newAdress "), "Error changing adress")
+        self.assertEqual(self.Project.command("change InexistantAccount address newAdress "), "Error changing address")
 
     def test_change_address_command_no_username(self):
-        self.assertEqual(self.Project.command("change adress NewAdress "), "Error changing adress")
+        self.assertEqual(self.Project.command("change address NewAddress "), "Error changing address")
 
     def test_change_name_command_correct(self):
         self.assertEqual(self.Project.command("change username name NewName"), "Name has been changed")
@@ -229,31 +238,31 @@ class TestProject(TestCase):
         self.assertEqual(self.Project.command("change name NewName "), "Error changing name")
 
     def test_change_title_command_correct(self):
-        self.assertEqual(self.Project.command("change username title NewTitle"), "adress has been changed")
+        self.assertEqual(self.Project.command("change username title NewTitle"), "address has been changed")
 
     def test_change_title_command_no_adress(self):
-        self.assertEqual(self.Project.command("change username title"), "Error changing adress")
+        self.assertEqual(self.Project.command("change username title"), "Error changing address")
 
     def test_change_title_command_invalid_username(self):
-        self.assertEqual(self.Project.command("change InexistantAccount title newTitle "), "Error changing adress")
+        self.assertEqual(self.Project.command("change InexistantAccount title newTitle "), "Error changing address")
 
     def test_change_title_command_no_username(self):
-        self.assertEqual(self.Project.command("change title NewTitle "), "Error changing adress")
+        self.assertEqual(self.Project.command("change title NewTitle "), "Error changing address")
 
     def test_change_Hphone_command_correct(self):
-        self.assertEqual(self.Project.command("change username Hphone newPhoneNumber"), "Hphone number has been changed")
+        self.assertEqual(self.Project.command("change username Hphone newPhoneNumber"), "Home phone number has been changed")
 
     def test_change_Hphone_command_no_number(self):
-        self.assertEqual(self.Project.command("change username Hphone"), "Error changing Hnumber")
+        self.assertEqual(self.Project.command("change username Hphone"), "Error changing Home phone number")
 
     def test_change_Hphone_command_invalid_username(self):
-        self.assertEqual(self.Project.command("change InexistantAccount Hphone newPhoneNumber "), "Error changing Hnumber")
+        self.assertEqual(self.Project.command("change InexistantAccount Hphone newPhoneNumber "), "Error changing Home phone number")
 
     def test_change_Hphone_command_no_username(self):
-        self.assertEqual(self.Project.command("change Hphone NewPhoneNumber "), "Error changing Hnumber")
+        self.assertEqual(self.Project.command("change Hphone NewPhoneNumber "), "Error changing Home phone number")
 
     def test_change_Hphone_command_wrong_number_format(self):
-        self.assertEqual(self.Project.command("change username Hphone IncorectNumberFormat"), "Error changing Hnumber")
+        self.assertEqual(self.Project.command("change username Hphone IncorectNumberFormat"), "Error changing Home phone number")
 
     def test_addclass_command_correct(self):
         self.assertEqual(self.Project.command("add class username classname"), "class added")
@@ -285,18 +294,18 @@ class TestProject(TestCase):
     def test_removeclass_command_invalid_classname2(self):
         self.assertEqual(self.Project.command("remove class username unaddedClassname"), "no such class has been added here")
 
-    def test_change_Eadress_command_correct(self):
-        self.assertEqual(self.Project.command("change username emailadress NewEmailAdress"), "emailadress has been changed")
+    def test_change_Eaddress_command_correct(self):
+        self.assertEqual(self.Project.command("change username emailaddress NewEmailAddress"), "email address has been changed")
 
-    def test_change_Eadress_command_no_adress(self):
-        self.assertEqual(self.Project.command("change username emailadress"), "Error changing emailadress")
+    def test_change_Eaddress_command_no_adress(self):
+        self.assertEqual(self.Project.command("change username emailaddress"), "Error changing email address")
 
-    def test_change_Eadress_command_invalid_username(self):
-        self.assertEqual(self.Project.command("change InexistantAccount emailadress newEmailAdress "),
-                         "Error changing emailadress")
+    def test_change_Eaddress_command_invalid_username(self):
+        self.assertEqual(self.Project.command("change InexistantAccount emailaddress newEmailAddress "),
+                         "Error changing email address")
 
-    def test_change_Eadress_command_no_username(self):
-        self.assertEqual(self.Project.command("change emailadress NewEmailAdress "), "Error changing emailadress")
+    def test_change_Eaddress_command_no_username(self):
+        self.assertEqual(self.Project.command("change emailaddress NewEmailAddress "), "Error changing email address")
 
     """
     sendOutNotification command 
@@ -318,38 +327,41 @@ class TestProject(TestCase):
     Elizabeth -- The send out to specific users option implies that this command could have endless arguments - do we 
     want to deal with that? 
     
+    Natasha -- for the specific users option, if they just enter a string like "elizabeth natasha eonshik alex adrian" then 
+    the program can just split it. I don't think it would be too bad. But we need to make it clear that that needs to be
+    entered as a string in our manual or whatever.
     """
 
     def test_command_notification(self):
         self.assertEqual(self.Project.command("sendNotification accountName"), "Notification was sent successfully")
 
     def test_command_notification_was_sent_all(self):
-        self.assertEqual(self.Project.command("sendNotification -a"), "Notification was sent to all  successfully")
+        self.assertEqual(self.Project.command("sendNotification -a"), "Notifications were sent successfully")
 
     def test_command_notification_was_sent_specific(self):
         self.assertEqual(self.Project.command("sendNotification accountName(s) -s"),
-                         "Notification was sent to specific people successfully")
+                         "Notifications were sent successfully")
 
     def test_command_notification_was_not_sent(self):
-        self.assertEqual(self.Project.command("sendNotification accountName"), "We weren't able to send a notification")
+        self.assertEqual(self.Project.command("sendNotification accountName"), "Unable to send notifications")
 
     def test_command_notification_was_not_sent_all(self):
         self.assertEqual(self.Project.command("sendNotification accountName -a"),
-                         "We weren't able to send a notification to all")
+                         "Unable to send notifications")
 
     def test_command_notification_was_not_sent_specific(self):
         self.assertEqual(self.Project.command("sendNotification accountNames -s"),
-                         "We weren't able to send a notification to specific people")
+                         "Unable to send notifications")
 
     def test_command_no_argument(self):
-        self.assertEqual(self.Project.command("sendNotification -s"), "Please type the user names that you want to sent")
+        self.assertEqual(self.Project.command("sendNotification -s"), "Please type the user names that you want to notify")
 
     def test_command_no_argument_2(self):
             self.assertEqual(self.Project.command("sendNotification -a"),
-                             "Please type the user names  that you want to sent")
+                             "Please type the user names that you want to notify")
 
     def test_command_no_argument_3(self):
-        self.assertEqual(self.Project.command("sendNotification"), "Please type the username that you want to sent")
+        self.assertEqual(self.Project.command("sendNotification"), "Please type the username that you want to notify")
 
 
 
@@ -367,6 +379,9 @@ class TestProject(TestCase):
            account given what type of account it is 
            Eonshik - I think the argument "name" need be changed "userName" to make the the argument command consistent.
           Don't we need to consider the case if there are two users have the same user name?
+          Natasha-- Eonshik: no two users should have the same user name. It's supposed to be a specific identifier.
+                Elizabeth: I think that is true, but it doesn't make sense to the user. That would make it more helpful
+                for us, but I think that kind of shares some information about how we are storing data that is unwanted.
            
         """
 
@@ -436,6 +451,8 @@ class TestProject(TestCase):
         Eonshik - some test removed and add more tests
         Elizabeth -- I added a username field to this command so they can specify who they want to be assigned to the class
         also changed the command name to assignInstructorCourse so it matches the assignTACourse below. 
+        Natasha--I don't think a class name is necessary, only the number. The number should be the identifier. It would
+        also help avoid user error/make it easier to use.
         """
 
         """
@@ -464,6 +481,7 @@ class TestProject(TestCase):
                                                               "username of who you want to assign to the class")
     """
     Elizabeth -- do we need to worry about conflicts? 
+    Natasha -- I think this is something to worry about. It wouldn't make sense to assign multiple instructors to a course.
     def test_command_conflicted_class(self):
         self.assertEqual(self.Project.command("assign className classNumber"), "This class was already assigned")
     """
@@ -517,7 +535,7 @@ class TestProject(TestCase):
         -accountName 
         
         If the account does not exist, an error message is displayed, otherwise, public data is displayed
-      
+        Natasha -- I think this is adequate.
         """
 
 
@@ -548,6 +566,10 @@ class TestProject(TestCase):
         Elizabeth -- I think something like this would suffice for this command for now, I don't think we need to dive 
         into all the specific commands that could go along with this like "editPhoneNumber" etc etc. I do not recall 
         why this is different than editAccount. 
+        Natasha -- This command shouldn't take username arguments, I don't think. This is only for a TA or instructor to update their
+        own contact information. No one should be able to enter any username in there. It is only for their own information.
+        I'm not sure exactly how this should be done, but this looks like it may be giving anyone the ability to access other
+        information that is not their own.
 
         def test_command_editInformation_success(self):
             self.assertEqual(self.Project.command("editInformation username title"), 
@@ -566,46 +588,46 @@ class TestProject(TestCase):
         """
 
     def test_change_phone_command_correct(self):
-        self.assertEqual(self.Project.command("change my phone newPhoneNumber"), "phone number has been changed")
+        self.assertEqual(self.Project.command("change myPhone newPhoneNumber"), "phone number has been changed")
 
     def test_change_phone_command_no_number(self):
-        self.assertEqual(self.Project.command("change my phone"), "Error changing number")
+        self.assertEqual(self.Project.command("change myPhone"), "Error changing number")
 
     def test_change_phone_command_wrong_number_format(self):
-        self.assertEqual(self.Project.command("change my phone IncorectNumberFormat"), "Error changing number")
+        self.assertEqual(self.Project.command("change myPhone IncorectNumberFormat"), "Error changing number")
 
     def test_change_phone_command_no_username(self):
-        self.assertEqual(self.Project.command("change phone NewPhoneNumber "), "Error changing number")
+        self.assertEqual(self.Project.command("change myPhone NewPhoneNumber "), "Error changing number")
 
-    def test_change_adress_command_correct(self):
-        self.assertEqual(self.Project.command("change my adress NewAdress"), "adress has been changed")
+    def test_change_address_command_correct(self):
+        self.assertEqual(self.Project.command("change myAddress NewAddress"), "Address has been changed")
 
-    def test_change_adress_command_no_adress(self):
-        self.assertEqual(self.Project.command("change my adress"), "Error changing adress")
+    def test_change_address_command_no_address(self):
+        self.assertEqual(self.Project.command("change myAddress"), "Error changing address")
 
-    def test_change_adress_command_no_username(self):
-        self.assertEqual(self.Project.command("change adress NewAdress "), "Error changing adress")
+    def test_change_address_command_no_username(self):
+        self.assertEqual(self.Project.command("change address NewAddress"), "Error changing address")
 
     def test_change_Hphone_command_correct(self):
-        self.assertEqual(self.Project.command("change my Hphone newPhoneNumber"), "Hphone number has been changed")
+        self.assertEqual(self.Project.command("change myHphone newPhoneNumber"), "Home phone number has been changed")
 
     def test_change_Hphone_command_no_number(self):
-        self.assertEqual(self.Project.command("change my Hphone"), "Error changing Hnumber")
+        self.assertEqual(self.Project.command("change myHphone"), "Error changing home phone number")
 
     def test_change_Hphone_command_no_username(self):
-        self.assertEqual(self.Project.command("change Hphone NewPhoneNumber "), "Error changing Hnumber")
+        self.assertEqual(self.Project.command("change Hphone NewPhoneNumber"), "Error changing home phone number")
 
     def test_change_Hphone_command_wrong_number_format(self):
-        self.assertEqual(self.Project.command("change my Hphone IncorectNumberFormat"), "Error changing Hnumber")
+        self.assertEqual(self.Project.command("change myHphone IncorectNumberFormat"), "Error changing home phone number")
 
-    def test_change_Eadress_command_correct(self):
-        self.assertEqual(self.Project.command("change my emailadress NewEmailAdress"), "emailadress has been changed")
+    def test_change_Eaddress_command_correct(self):
+        self.assertEqual(self.Project.command("change myEmailAddress NewEmailAddress"), "Email address has been changed")
 
-    def test_change_Eadress_command_no_adress(self):
-        self.assertEqual(self.Project.command("change my emailadress"), "Error changing emailadress")
+    def test_change_Eaddress_command_no_address(self):
+        self.assertEqual(self.Project.command("change myemailaddress"), "Error changing email address")
 
-    def test_change_Eadress_command_no_username(self):
-        self.assertEqual(self.Project.command("change emailadress NewEmailAdress "), "Error changing emailadress")
+    def test_change_Eaddress_command_no_username(self):
+        self.assertEqual(self.Project.command("change emailaddress NewEmailAddress "), "Error changing email address")
 
     """
      When the viewCourseAssignments command is entered, it takes one argument:
@@ -623,7 +645,8 @@ class TestProject(TestCase):
        Eonshik Kim - some parts removed and some test added
        Elizabeth -- we could do this one two ways, either see the assignmetns for a certain class or for a certain 
        person or view all the the assignments for every class.  Which should we do? 
-       
+       Natasha -- I think it should probably just show all assignments. By the way it is listed on the assignment,
+       it seems like this command is only supposed to show the user's (instructor) assignments.
        """
 
     def test_command_viewCourseAssignments(self):
@@ -648,6 +671,9 @@ class TestProject(TestCase):
 
        If the class Number is not entered, an error message is displayed
        If the class does not exist, an error message is displayed 
+       
+       Natasha--by the way it sounds on the assignment description, it seems like this command should only display
+       all TA assignments for all classes. So it shouldn't need any arguments at all. 
 
        """
 
