@@ -299,17 +299,12 @@ class TestProject(TestCase):
         self.assertEqual(self.Project.command("change emailadress NewEmailAdress "), "Error changing emailadress")
 
     """
-    sendOutNotification command 
-    When the sendOutNotification command is entered it takes 2-3 arguments: 
+      When the sendOutNotification command is entered, it takes two arguments, 
+            - accountName
+            - -a
+            "-a" command is used for to sending notification for all users.
+           If accountName or -a is missing, an error message is displayed.
 
-    -sendNotification -a
-    To send notification to all users.
-
-    -sendNotification accountNames -s
-    To send notification to specific users.
-
-    -sendNotification  accountName
-    to send notification to one person
     
     Elizabeth -- we don't need to worry about password access here - just the "sendOutNotification" command 
     
@@ -318,10 +313,11 @@ class TestProject(TestCase):
     Elizabeth -- The send out to specific users option implies that this command could have endless arguments - do we 
     want to deal with that? 
     
+    Eonshik - Some changed made on description and tests.
     """
 
     def test_command_notification(self):
-        self.assertEqual(self.Project.command("sendNotification accountName"), "Notification was sent successfully")
+        self.assertEqual(self.Project.command("sendNotification accountName"), "Notification was sent successfully.")
 
     def test_command_notification_was_sent_all(self):
         self.assertEqual(self.Project.command("sendNotification -a"), "Notification was sent to all  successfully")
@@ -621,7 +617,7 @@ class TestProject(TestCase):
        Elizabeth -- we don't need to test for passwords here or have a search command, just the "viewCourseAssignments"
        command 
        Eonshik Kim - some parts removed and some test added
-       Elizabeth -- we could do this one two ways, either see the assignmetns for a certain class or for a certain 
+       Elizabeth -- we could do this one two ways, either see the assignments for a certain class or for a certain 
        person or view all the the assignments for every class.  Which should we do? 
        
        """
