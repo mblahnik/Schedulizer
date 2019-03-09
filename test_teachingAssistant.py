@@ -1,5 +1,5 @@
 from unittest import TestCase
-from taAccount import taAccount
+from teachingAssistant import taAccount
 
 class TestTaAccount(TestCase):
 

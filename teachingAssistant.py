@@ -1,5 +1,11 @@
 from instructor import instructor
 
+"""
+TAs can: 
+-Edit their own contact information
+-Read public contact information
+-View TA assignments 
+"""
 
 class taAccount(instructor):
 
