@@ -71,6 +71,7 @@ class TestAccount(TestCase):
         #test getting office hours
         self.assertEqual(self.Account1.getInfo("Office hours"), "All day everyday")
 
+        #Should not work
         with self.assertRaises(ValueError):
             self.Account1.getInfo("height")
 
