@@ -316,10 +316,11 @@ class TestProject(TestCase):
             - accountName(s) -s
             - -a
             
-    accountName command is used for to sending notification for one user.
-    accountName -s command is used for to sending notification for specific users.
-    -a command is used for to sending notification for all users.
-    If accountName, -a, -s are missing, an error message is displayed.
+    The accountName command is used to send a notification for one user.
+    accountName -s command is used to send notifications for specific users.
+    -a command is used to send notifications for all users.
+    If accountName is missing, an error message is displayed.
+    If the arguments -s is missing after userNames are typed, an error message is displayed.
 
     Elizabeth -- we don't need to worry about password access here - just the "sendOutNotification" command 
 
@@ -328,9 +329,9 @@ class TestProject(TestCase):
     Elizabeth -- The send out to specific users option implies that this command could have endless arguments - do we 
     want to deal with that? 
 
-    Natasha -- for the specific users option, if they just enter a string like "elizabeth natasha eonshik alex adrian" then 
-    the program can just split it. I don't think it would be too bad. But we need to make it clear that that needs to be
-    entered as a string in our manual or whatever.
+    Natasha -- for the specific users option, if they just enter a string like "elizabeth natasha eonshik alex adrian" 
+    then the program can just split it. I don't think it would be too bad. But we need to make it clear that that needs 
+    to be entered as a string in our manual or whatever.
     
     Eonshik - Description was revised and some changes made on tests.
     """
@@ -346,25 +347,25 @@ class TestProject(TestCase):
                          "Notifications were sent successfully")
 
     def test_command_notification_was_not_sent(self):
-        self.assertEqual(self.Project.command("sendNotification accountName"), "Unable to send notifications")
+        self.assertEqual(self.Project.command("sendNotification accountName"), "Unable to send a notification")
 
     def test_command_notifications_were_not_sent_all(self):
         self.assertEqual(self.Project.command("sendNotification accountName -a"),
-                         "Unable to send notifications")
+                         "Unable to send notifications to all")
 
     def test_command_notifications_were_not_sent_specific(self):
         self.assertEqual(self.Project.command("sendNotification accountNames -s"),
-                         "Unable to send notifications")
+                         "Unable to send notifications to specific users")
+
+    def test_command_notifications_s_is_missing(self):
+        self.assertEqual(self.Project.command("sendNotification accountName(s)"),
+                         "Please type the command -s after type the accountNames")
 
     def test_command_no_argument(self):
         self.assertEqual(self.Project.command("sendNotification -s"),
                          "Please type the user names that you want to notify")
 
     def test_command_no_argument_2(self):
-        self.assertEqual(self.Project.command("sendNotification -a"),
-                         "Please type the user names that you want to notify")
-
-    def test_command_no_argument_3(self):
         self.assertEqual(self.Project.command("sendNotification"), "Please type the username that you want to notify")
 
         """
