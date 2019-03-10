@@ -428,19 +428,13 @@ class TestProject(TestCase):
     def test_command_AccessAllData_no_such_user(self):
         self.assertEqual(self.Project.command("AccessAllData userName"), "User does not exist")
 
-        """
-        When the assignInstructorCourse command is entered it takes 3 arguments: 
-        - class name
-        - class number
-        - Instructor user name
-        
-        
+        """  
          When the assignInstructorCourse command is entered, it takes 2 arguments, 
             - class Number
-            - accountName
+            - Instructor user name
             
-        If accountName is missing, an error message is displayed.
-        If 
+        If class number is missing, an error message is displayed.
+        If instructor user name is not existed, an error message is displayed.
         
 
         Alex - Logging in with a password is a completely different feature that we currently do not support. I think
@@ -460,7 +454,7 @@ class TestProject(TestCase):
         also changed the command name to assignInstructorCourse so it matches the assignTACourse below. 
         Natasha--I don't think a class name is necessary, only the number. The number should be the identifier. It would
         also help avoid user error/make it easier to use.
-        Eonshik - 
+        Eonshik - Description was revised and some changes made on tests.
         """
 
         """
@@ -475,18 +469,15 @@ class TestProject(TestCase):
         """
 
     def test_command__assignInstructorCourse_class_number_missing(self):
-        self.assertEqual(self.Project.command("assignInstructorCourse className userName"), "Class Number is missing")
-
-    def test_command_assignInstructorCourse_class_name_missing(self):
-        self.assertEqual(self.Project.command("assignInstructorCourse classNumber userName"), "Class Name is missing")
+        self.assertEqual(self.Project.command("assignInstructorCourse accountName"), "Class Number is missing")
 
     def test_command_assignInstructorCourse_no_userName(self):
-        self.assertEqual(self.Project.command("assignInstructorCourse className classNumber"), "Username is missing")
+        self.assertEqual(self.Project.command("assignInstructorCourse classNumber"), "Account name is missing")
 
     def test_command_assignInstructorCourse_no_args(self):
         self.assertEqual(self.Project.command("assignInstructorCourse"),
-                         "Please provide the class name, class number and the "
-                         "username of who you want to assign to the class")
+                         "Please provide the class number and the "
+                         "account name of who you want to assign to the class")
 
     """
     Elizabeth -- do we need to worry about conflicts? 
@@ -494,9 +485,16 @@ class TestProject(TestCase):
     def test_command_conflicted_class(self):
         self.assertEqual(self.Project.command("assign className classNumber"), "This class was already assigned")
     """
+    def test_command_assignInstructorCourse_invalid_account(self):
+        self.assertEqual(self.Project.command("assignInstructorCourse classNumber accountName"),
+                         "invalid account name")
+
+    def test_command_assignInstructorCourse_invalid_class(self):
+        self.assertEqual(self.Project.command("assignInstructorCourse classNumber accountName"),
+                         "invalid class number")
 
     def test_command_assignInstructorCourse_success(self):
-        self.assertEqual(self.Project.command("assignInstructorCourse className classNumber userName"),
+        self.assertEqual(self.Project.command("assignInstructorCourse classNumber accountName"),
                          "Assignment was successful")
 
     """
