@@ -48,6 +48,11 @@ class TestAccount(TestCase):
         self.Account1.setInfo("Office hours", "never")
         self.assertEqual(self.Account1.accountInfo["Office hours"], "never")
 
+        #test changing password
+        self.assertEqual(self.Account1.accountInfo["password"], "password")
+        self.Account1.setInfo("password", "goodPassword")
+        self.assertEqual(self.Account1.accountInfo["password"], "goodPassword")
+
         with self.assertRaises(ValueError):
             self.Account1.setInfo("title", 1)
             self.Account1.setInfo("height", "5'5")
