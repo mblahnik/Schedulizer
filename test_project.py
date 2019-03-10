@@ -138,165 +138,59 @@ class TestProject(TestCase):
                          "Lab cannot be created for an online course.")
 
     """
-        When the editAccount command is entered, it takes arguments
+        When the edit command is entered, it takes 4 arguments.
+        Only supervisors and administrators can utilize this command
         -Username
-        -Title 
+        -Field that needs editing 
+            - Home phone
+            - Email 
+            - Office hours (a start time, an end time and days of office hours) 
+            - Address 
+            - Office Number
+            - Office phone Number 
+        -Updated information 
         
         If the user does not exist, an error message is displayed.
         If command arguments are missing, an error message is displayed. 
     
-       Edit Information 
-       Alex- These tests should test whatever command we are using to edit account information. "find" is currently
-       not a command that we are supporting. 
-       - Now that I look at this, its kind of big. Maybe we should think about breaking this up.  
-       This also isn't properly setup for the unittest framework but I dont think that matters since we are not
-       running it
-       Elizabeth - I think these tests go beyond the scope of the base command -- really what should be tested here 
-       is simply the "editInformation" command, I don't think we need to go in depth and make separate commands for
-       editing all the different fields at this time.  
-       Eonshik - I think this part is kind of Epic as a user story, it needs to be break into smaller pieces.
-       and the argument username would be better to change accountName to make the argument command consistent.
        """
 
+    def test_command_edit_homePhone_success(self):
+        self.asserEqual(self.Project.command("edit username homephone 262-555-7134"), "Home phone successfully updated")
 
-    """
-    Elizabeth -- I think something like this would suffice for this command for now, I don't think we need to dive 
-    into all the specific commands that could go along with this like "editPhoneNumber" etc etc. Also it should 
-    probably be called editAccount since editInformation is down below. 
-    
-    def test_command_editAccount_success(self):
-        self.assertEqual(self.Project.command("editAccount username title"), 
-                         "Account located.  Please edit below")
-        
-    def test_command_editAccount_user_does_not_exist(self):
-        self.assertEqual(self.Project.command("editAccount username title"), "User does not exist")
-        
-    def test_command_editAccount_no_username(self):
-        self.assertEqual(self.Project.command("editAccount title"), "No username entered, username required")
+    def test_command_edit_email_success(self):
+        self.assertEqual(self.Project.command("edit username email timmy345@uwm.edu"), "Email successfully updated")
 
-    def test_command_editAccount_no_title(self):
-        self.assertEqual(self.Project.command("editAccount userName"), "No title entered, title required")
-    
-    
-    """
+    def test_command_edit_office_hours_success(self):
+        self.assertEqual(self.Project.command("edit username officehours 1500 1600 MW"), "Office hours successfully updated")
 
-    def test_find_command_correct(self):
-        self.assertEqual(self.Project.command("find username"), "account exists")
+    def test_command_edit_address_success(self):
+        self.assertEqual(self.Project.command("edit username address 6789 Hilly Avenue Milwaukee WI 53218"),
+                "Address successfully updated")
 
-    def test_find_command_no_username(self):
-        self.assertEqual(self.Project.command("find "), "no such account exists")
+    def test_command_edit_officeNumber_success(self):
+        self.assertEqual(self.Project.command("edit username officeNumber 5679"), "Office number successfully updated")
 
-    def test_find_command_invalid_username(self):
-        self.assertEqual(self.Project.command("find InexistantAccount"), "no such account exists")
+    def test_command_edit_officePhone_success(self):
+        self.assertEqual(self.Project.command("edit username officePhone 262-789-5476"), "Office phone successfully updated")
 
-    def test_change_phone_command_correct(self):
-        self.assertEqual(self.Project.command("change username phone newPhoneNumber"), "phone number has been changed")
+    def test_command_edit_error_missing_args1(self):
+        self.assertEqual(self.Project.command("edit"), "There are missing arguments in your command. Please enter your "
+                "command in the following format: edit username field newInformation")
 
-    def test_change_phone_command_no_number(self):
-        self.assertEqual(self.Project.command("change username phone"), "Error changing number")
+    def test_command_edit_error_missing_args2(self):
+        self.assertEqual(self.Project.command("edit username"), "There are missing arguments in your command, Please "
+                "enter you command in the following format: edit username field newInformation")
 
-    def test_change_phone_command_invalid_username(self):
-        self.assertEqual(self.Project.command("change InexistantAccount phone newPhoneNumber "), "Error changing number")
+    def test_command_edit_error_missing_args3(self):
+        self.assertEqual(self.Project.command("edit username homephone"), "There are missing arguments in your command, Please "
+                "enter you command in the following format: edit username field newInformation")
 
-    def test_change_phone_command_no_username(self):
-        self.assertEqual(self.Project.command("change phone NewPhoneNumber "), "Error changing number")
+    def test_command_edit_error_user_does_not_exist(self):
+        self.assertEqual(self.Project.command("edit username homephone 262-555-7134"), "The user you specified does not"
+                 "exist in the system, please try again")
 
-    def test_change_phone_command_wrong_number_format(self):
-        self.assertEqual(self.Project.command("change username phone IncorectNumberFormat"), "Error changing number")
 
-    def test_change_address_command_correct(self):
-        self.assertEqual(self.Project.command("change username adress NewAdress"), "adress has been changed")
-
-    def test_change_address_command_no_adress(self):
-        self.assertEqual(self.Project.command("change username adress"), "Error changing adress")
-
-    def test_change_address_command_invalid_username(self):
-        self.assertEqual(self.Project.command("change InexistantAccount adress newAdress "), "Error changing adress")
-
-    def test_change_address_command_no_username(self):
-        self.assertEqual(self.Project.command("change adress NewAdress "), "Error changing adress")
-
-    def test_change_name_command_correct(self):
-        self.assertEqual(self.Project.command("change username name NewName"), "Name has been changed")
-
-    def test_change_name_command_no_name(self):
-        self.assertEqual(self.Project.command("change username name"), "Error changing name")
-
-    def test_change_name_command_invalid_username(self):
-        self.assertEqual(self.Project.command("change InexistantAccount name newName "), "Error changing name")
-
-    def test_change_name_command_no_username(self):
-        self.assertEqual(self.Project.command("change name NewName "), "Error changing name")
-
-    def test_change_title_command_correct(self):
-        self.assertEqual(self.Project.command("change username title NewTitle"), "adress has been changed")
-
-    def test_change_title_command_no_adress(self):
-        self.assertEqual(self.Project.command("change username title"), "Error changing adress")
-
-    def test_change_title_command_invalid_username(self):
-        self.assertEqual(self.Project.command("change InexistantAccount title newTitle "), "Error changing adress")
-
-    def test_change_title_command_no_username(self):
-        self.assertEqual(self.Project.command("change title NewTitle "), "Error changing adress")
-
-    def test_change_Hphone_command_correct(self):
-        self.assertEqual(self.Project.command("change username Hphone newPhoneNumber"), "Hphone number has been changed")
-
-    def test_change_Hphone_command_no_number(self):
-        self.assertEqual(self.Project.command("change username Hphone"), "Error changing Hnumber")
-
-    def test_change_Hphone_command_invalid_username(self):
-        self.assertEqual(self.Project.command("change InexistantAccount Hphone newPhoneNumber "), "Error changing Hnumber")
-
-    def test_change_Hphone_command_no_username(self):
-        self.assertEqual(self.Project.command("change Hphone NewPhoneNumber "), "Error changing Hnumber")
-
-    def test_change_Hphone_command_wrong_number_format(self):
-        self.assertEqual(self.Project.command("change username Hphone IncorectNumberFormat"), "Error changing Hnumber")
-
-    def test_addclass_command_correct(self):
-        self.assertEqual(self.Project.command("add class username classname"), "class added")
-
-    def test_addclass_command_no_username(self):
-        self.assertEqual(self.Project.command("add class classname"), "no such account exists")
-
-    def test_addclass_command_invalid_username(self):
-        self.assertEqual(self.Project.command("add class InexistantAccount classname"), "no such account exists")
-
-    def test_addclass_command_invalid_class(self):
-        self.assertEqual(self.Project.command("add class username InexistantClassname"), "no such class exists")
-
-    def test_addclass_command_invalid_class(self):
-        self.assertEqual(self.Project.command("add class username addedClassname"), "class has already been added")
-
-    def test_removeclass_command_correct(self):
-        self.assertEqual(self.Project.command("remove class username classname"), "class removed")
-
-    def test_removeclass_command_no_username(self):
-        self.assertEqual(self.Project.command("remove class classname "), "no such account exists")
-
-    def test_removeclass_command_invalid_username(self):
-        self.assertEqual(self.Project.command("remove class InexistantAccount classname"), "no such account exists")
-
-    def test_removeclass_command_invalid_classname(self):
-        self.assertEqual(self.Project.command("remove class username InexistantClassname"), "no such class exists")
-
-    def test_removeclass_command_invalid_classname2(self):
-        self.assertEqual(self.Project.command("remove class username unaddedClassname"), "no such class has been added here")
-
-    def test_change_Eadress_command_correct(self):
-        self.assertEqual(self.Project.command("change username emailadress NewEmailAdress"), "emailadress has been changed")
-
-    def test_change_Eadress_command_no_adress(self):
-        self.assertEqual(self.Project.command("change username emailadress"), "Error changing emailadress")
-
-    def test_change_Eadress_command_invalid_username(self):
-        self.assertEqual(self.Project.command("change InexistantAccount emailadress newEmailAdress "),
-                         "Error changing emailadress")
-
-    def test_change_Eadress_command_no_username(self):
-        self.assertEqual(self.Project.command("change emailadress NewEmailAdress "), "Error changing emailadress")
 
     """
     sendOutNotification command 
@@ -385,32 +279,7 @@ class TestProject(TestCase):
     def test_command_deleteAccount_doesNotExist(self):
             self.assertEqual(self.Project.command("deleteAccount userName title"), "Account does not exist")
 
-        """
-        When the AccessAllData command is entered, it takes one argument, 
-        - name
-       If no name is entered, an error is displayed 
-       If user does not exist, an error is displayed
-       Alex - I believe AccessAllData should print all of the data for an account - the password
-       rather than just saying "account found" it should probably print off all of the data in an easy to read format 
-       Natasha - I also think that it should display all of the data.
-       Elizabeth -- Of course it needs to display all data - I was thinking that could happen via a different 
-       medium though (the command would return the "accountfound" response then some background method would display 
-       the data), not just a long string representation of all the data as the response.  Either way is cool. 
-       --we also might want to have this take a title field too, for ease of finding the data later on, assuming we
-       are storing TAs separately. 
-       Eonshik - I think it looks good. I don't think we need add more test to find all of information was successfully 
-       passed. I think It would just need to simply test the AccessAllData command show the all its data or not.
-       I think the argument "name" need be changed "userName" to make the the argument command consistent.
-        """
 
-    def test_command_AccessAllData_success(self):
-        self.assertEqual(self.Project.command("AccessAllData userName"), "Account found!")
-
-    def test_command_AccessAllData_noname(self):
-        self.assertEqual(self.Project.command("AccessAllData"), "No userName was entered, error")
-
-    def test_command_AccessAllData_no_such_user(self):
-        self.assertEqual(self.Project.command("AccessAllData userName"), "User does not exist")
 
         """
         Type numOfAssigned to check how many classes an instructor is currently assigned to
