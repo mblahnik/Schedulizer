@@ -312,15 +312,14 @@ class TestProject(TestCase):
 
     """
     When the sendOutNotification command is entered, it takes 1-2 arguments, 
-            - accountName
-            - accountName(s) -s
+            - account name
+            - account names -s
             - -a
             
-    The accountName command is used to send a notification for one user.
-    accountName -s command is used to send notifications for specific users.
-    -a command is used to send notifications for all users.
+    -s is used to send notifications for specific users.
+    -a is used to send notifications for all users.
     If accountName is missing, an error message is displayed.
-    If the arguments -s is missing after userNames are typed, an error message is displayed.
+    If the argument -s is missing after user names are typed, an error message is displayed.
 
     Elizabeth -- we don't need to worry about password access here - just the "sendOutNotification" command 
 
@@ -343,7 +342,7 @@ class TestProject(TestCase):
         self.assertEqual(self.Project.command("sendNotification -a"), "Notifications were sent successfully")
 
     def test_command_notifications_were_sent_specific(self):
-        self.assertEqual(self.Project.command("sendNotification accountName(s) -s"),
+        self.assertEqual(self.Project.command("sendNotification accountNames -s"),
                          "Notifications were sent successfully")
 
     def test_command_notification_was_not_sent(self):
@@ -358,8 +357,8 @@ class TestProject(TestCase):
                          "Unable to send notifications to specific users")
 
     def test_command_notifications_s_is_missing(self):
-        self.assertEqual(self.Project.command("sendNotification accountName(s)"),
-                         "Please type the command -s after type the accountNames")
+        self.assertEqual(self.Project.command("sendNotification accountNames"),
+                         "Please type -s after type the accountNames")
 
     def test_command_no_argument(self):
         self.assertEqual(self.Project.command("sendNotification -s"),
@@ -430,12 +429,19 @@ class TestProject(TestCase):
         self.assertEqual(self.Project.command("AccessAllData userName"), "User does not exist")
 
         """
-        Type numOfAssigned to check how many classes an instructor is currently assigned to
-        type viewSchedule to see the availability schedule
         When the assignInstructorCourse command is entered it takes 3 arguments: 
-        - className
-        - class Number
-        - Instructor user Name
+        - class name
+        - class number
+        - Instructor user name
+        
+        
+         When the assignInstructorCourse command is entered, it takes 2 arguments, 
+            - class Number
+            - accountName
+            
+        If accountName is missing, an error message is displayed.
+        If 
+        
 
         Alex - Logging in with a password is a completely different feature that we currently do not support. I think
         that if we did have a login command it would be preformed in the setup section rather than the tests. Example
@@ -454,6 +460,7 @@ class TestProject(TestCase):
         also changed the command name to assignInstructorCourse so it matches the assignTACourse below. 
         Natasha--I don't think a class name is necessary, only the number. The number should be the identifier. It would
         also help avoid user error/make it easier to use.
+        Eonshik - 
         """
 
         """
