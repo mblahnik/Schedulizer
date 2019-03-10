@@ -3,103 +3,106 @@ from Project import Project
 
 
 class TestProject(TestCase):
-    """
-        When the createAccount command is entered, it takes two arguments
-        -Account Name
-        -Account Title
-        If the account name is already present in the database then the account is not created and
-        and error message is displayed
-        Elizabeth -- don't we need to include a bunch more arguments in this now? Or are we leaving it up
-        to the user to fill in all their info after their account is created?
-    """
+
     def setUp(self):
         self.Project = Project()
 
-    def test_command_createAccount_success(self):
-        self.assertEqual(self.Project.command(""), "Account successfully created")
 
-    def test_command_createAccount_no_title(self):
-        self.assertEqual(self.Project.command("createAccount accountName"), "Please specify a title")
+    """ 
+    createAccount command
+    When the createAccount command is entered, it takes 3 arguments:
+    -User name 
+    -Title
+    -Email 
+    
+    If arguments are missing from the command, an error message is displayed and the command is not executed.  
+    """
+
+    def test_command_createAccount_success(self):
+        self.assertEqual(self.Project.command("createAccount username title email"), "Account successfully created")
+
+    def test_command_createAccount_missingArguments(self):
+        self.asserEqual(self.Project.command("createAccount username"), "Your command is missing arguments, please enter"
+                        "your command in the following format: createAccount username title email")
+
+    def test_command_createAccount_missingArguments2(self):
+        self.asserEqual(self.Project.command("createAccount username title"), "Your command is missing arguments, please enter"
+                        "your command in the following format: createAccount username title email")
 
     def test_command_createAccount_invalidTitle(self):
         self.assertEqual(self.Project.command("createAccount accountName cashier"), "Please enter a valid title")
 
-    def test_command_createAccount_no_name(self):
-        self.assertEqual(self.Project.command("createAccount title"), "Need to specify a name")
-
     def test_command_createAccount_no_args(self):
-        self.assertEqual(self.Project.command("createAccount"), "Please enter a name and title")
+        self.assertEqual(self.Project.command("createAccount"), "Your command is missing arguments, please enter"
+                        "your command in the following format: createAccount username title email")
 
     def test_command_createAccount_already_exists(self):
-        self.assertEqual(self.Project.command("createAccount accountName title"), "Account already exists")
+        self.assertEqual(self.Project.command("createAccount accountName title email"), "Account already exists")
 
-        """
-           When the createCourse command is entered, it takes four arguments:
-           -Course Name 
-           -Course Number 
-           -Meetings days or "online" for an online class
-           -Time of class (start, end)
+    """
+        createCourse command 
+        When the createCourse command is entered, it takes five arguments:
+        -Course Name 
+        -Course Number 
+        -Meetings days or "online" for an online class
+        -Start time 
+        -End time
            
-           If the course name matches a database entry a then the course is not created 
-           and an error message is displayed and some other stuff
+        If the course name matches a database entry a then the course is not created 
+        and an error message is displayed and some other stuff
            
-           If a command argument is missing, an error message is displayed. 
-           
-           
-           Alex - I think this is all we need.
-           Natasha - I think createCourse needs to include course numbers, days of the week and time periods (or online), 
-           as arguments. Even though we aren't dealing with scheduling conflicts, times of courses are important
-           course information. I don't think they should be allowed to be created without that information.
-           Elizabeth -- I added some fields. 
-           Eonshik  - I think it would be better if we add more information like description of courses,
-            name of instructors and the units of the courses.
+        If a command argument is missing, an error message is displayed. 
             
-       """
+    """
 
     def test_command_createCourse_success(self):
         self.assertEqual(self.Project.command("createCourse courseName courseNumber daysOfWeek start end"),
                          "Course successfully created")
 
-    def test_command_createCourse_no_course_name(self):
+    def test_command_createCourse_missingArguments(self):
         self.assertEqual(self.Project.command("createCourse courseNumber daysOfWeek start end"),
-                         "You must enter a course name to create a course")
+                         "Your command is missing arguments, please enter your command in the following form: "
+                         "createCourse courseName courseNumber daysOfWeek start end")
 
-    def test_command_createCourse_no_course_number(self):
+    def test_command_createCourse_missingArguments2(self):
         self.assertEqual(self.Project.command("createCourse courseName daysOfWeek start end"),
-                         "You must enter a course number to create a course")
+                         "Your command is missing arguments, please enter your command in the following form: "
+                         "createCourse courseName courseNumber daysOfWeek start end")
 
-    def test_command_createCourse_no_daysOfWeek(self):
+    def test_command_createCourse_missingArguments3(self):
         self.assertEqual(self.Project.command("createCourse courseName courseNumber start end"),
-                         "You must enter a meeting days to create a course")
+                         "Your command is missing arguments, please enter your command in the following form: "
+                         "createCourse courseName courseNumber daysOfWeek start end")
 
-    def test_command_createCourse_no_start_time(self):
+    def test_command_createCourse_missingArguments4(self):
         self.assertEqual(self.Project.command("createCourse courseName courseNumber daysOfWeek end"),
-                         "You must enter a start time to create a course")
+                         "Your command is missing arguments, please enter your command in the following form: "
+                         "createCourse courseName courseNumber daysOfWeek start end")
 
-    def test_command_createCourse_no_end_time(self):
+    def test_command_createCourse_missingArguments5(self):
         self.assertEqual(self.Project.command("createCourse courseName courseNumber daysOfWeek start"),
-                         "You must enter an end time to create a course")
+                         "Your command is missing arguments, please enter your command in the following form: "
+                         "createCourse courseName courseNumber daysOfWeek start end")
 
     def test_command_createCourse_no_args(self):
-        self.assertEqual(self.Project.command("createCourse"), "Please specify a course name, course number, "
-                                                               "meeting days, and start and end times")
+        self.assertEqual(self.Project.command("createCourse"), "Your command is missing arguments, please enter "
+                        "your command in the following form: createCourse courseName courseNumber daysOfWeek start end")
 
     def test_command_createCourse_course_exists(self):
         self.assertEqual(self.Project.command("createCourse courseName courseNumber daysOfWeek start end"),
-                         "Course already exists")
+                         "Course already exists, course not added.")
 
 
-
-        """
-           When the createLab command is entered, it takes the following arguments:
-           -Course number associated with the lab 
-           -Lab section number
-           -Day(s) of week
-           -Begin time
-           -End time
-           If the lab already exists, a new lab is not created. If arguments are missing, return error. If the 
-           associated course is online, a lab cannot be created for it.
-       """
+    """
+        When the createLab command is entered, it takes the following arguments:
+        -Course number associated with the lab 
+        -Lab section number
+        -Day(s) of week
+        -Begin time
+        -End time
+        If the lab already exists, a new lab is not created. If arguments are missing, return error. If the 
+        associated course is online, a lab cannot be created for it.
+    """
 
     def test_command_createLab_success(self):
         self.assertEqual(self.Project.command("createLab courseNumber labSection day begin end"),
@@ -107,31 +110,37 @@ class TestProject(TestCase):
 
     def test_command_createLab_no_args(self):
         self.assertEqual(self.Project.command("createLab"),
-                         "Please specify a course number, lab section number, and meeting times")
+                         "Your command is missing arguments, please enter your command in the following format: "
+                         "createLab courseNumber labSectionNumber daysOfWeek beginTime endTime")
 
     def test_command_createLab_lab_exists(self):
         self.assertEqual(self.Project.command("createLab courseNumber labSection day begin end"),
-                         "Lab already exists")
+                         "Lab already exists, lab not added")
 
     def test_command_createLab_missing_course(self):
         self.assertEqual(self.Project.command("createLab labSection day begin end"),
-                         "Please specify the course the lab is associated with.")
+                         "Your command is missing arguments, please enter your command in the following format: "
+                         "createLab courseNumber labSectionNumber daysOfWeek beginTime endTime")
 
     def test_command_createLab_missing_section(self):
         self.assertEqual(self.Project.command("createLab courseNumber day begin end"),
-                         "Please specify the lab section number.")
+                         "Your command is missing arguments, please enter your command in the following format: "
+                         "createLab courseNumber labSectionNumber daysOfWeek beginTime endTime")
 
     def test_command_createLab_missing_day(self):
         self.assertEqual(self.Project.command("createLab courseNumber labSection begin end"),
-                         "Please specify meeting day.")
+                         "Your command is missing arguments, please enter your command in the following format: "
+                         "createLab courseNumber labSectionNumber daysOfWeek beginTime endTime")
 
     def test_command_createLab_missing_begin(self):
         self.assertEqual(self.Project.command("createLab courseNumber labSection day end"),
-                         "Please specify begin time.")
+                         "Your command is missing arguments, please enter your command in the following format: "
+                         "createLab courseNumber labSectionNumber daysOfWeek beginTime endTime")
 
     def test_command_createLab_missing_end(self):
         self.assertEqual(self.Project.command("createLab courseNumber labSection day begin"),
-                         "Please specify end time.")
+                         "Your command is missing arguments, please enter your command in the following format: "
+                         "createLab courseNumber labSectionNumber daysOfWeek beginTime endTime")
 
     def test_command_createLab_invalid_lab(self):
         self.assertEqual(self.Project.command("createLab courseNumber labSection day begin end"),
@@ -193,58 +202,60 @@ class TestProject(TestCase):
 
 
     """
-    sendOutNotification command 
+    send command 
+    Only supervisors and administrators can utilize this command 
     When the sendOutNotification command is entered it takes 2-3 arguments: 
 
-    -sendNotification -a
+    -send -a
     To send notification to all users.
 
-    -sendNotification accountNames -s
+    -send accountNames -s
     To send notification to specific users.
 
-    -sendNotification  accountName
+    -send  accountName
     to send notification to one person
-    
-    Elizabeth -- we don't need to worry about password access here - just the "sendOutNotification" command 
-    
-    Eonshik - I removed password part and add more tests.
-    
-    Elizabeth -- The send out to specific users option implies that this command could have endless arguments - do we 
-    want to deal with that? 
+
     
     """
 
-    def test_command_notification(self):
+    def test_command_send_success(self):
         self.assertEqual(self.Project.command("sendNotification accountName"), "Notification was sent successfully")
 
-    def test_command_notification_was_sent_all(self):
-        self.assertEqual(self.Project.command("sendNotification -a"), "Notification was sent to all  successfully")
+    def test_command_send_all_success(self):
+        self.assertEqual(self.Project.command("sendNotification -a"), "Notification was sent to all users successfully")
 
-    def test_command_notification_was_sent_specific(self):
+    def test_command_send_specific_success(self):
         self.assertEqual(self.Project.command("sendNotification accountName(s) -s"),
                          "Notification was sent to specific people successfully")
 
-    def test_command_notification_was_not_sent(self):
+    def test_command_send_error(self):
         self.assertEqual(self.Project.command("sendNotification accountName"), "We weren't able to send a notification")
 
-    def test_command_notification_was_not_sent_all(self):
+    def test_command_send_all_error(self):
         self.assertEqual(self.Project.command("sendNotification accountName -a"),
                          "We weren't able to send a notification to all")
 
-    def test_command_notification_was_not_sent_specific(self):
+    def test_command_send_specific_error(self):
         self.assertEqual(self.Project.command("sendNotification accountNames -s"),
                          "We weren't able to send a notification to specific people")
 
-    def test_command_no_argument(self):
+    def test_command_send_no_argument(self):
         self.assertEqual(self.Project.command("sendNotification -s"), "Please type the user names that you want to sent")
 
-    def test_command_no_argument_2(self):
+    def test_command_send_no_argument_2(self):
             self.assertEqual(self.Project.command("sendNotification -a"),
                              "Please type the user names  that you want to sent")
 
-    def test_command_no_argument_3(self):
+    def test_command_send_no_argument_3(self):
         self.assertEqual(self.Project.command("sendNotification"), "Please type the username that you want to sent")
 
+
+    """
+    sendTA command
+    The sendTA command takes one argument 
+    -classNumber
+    
+    """
 
 
 
