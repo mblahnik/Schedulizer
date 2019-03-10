@@ -629,9 +629,11 @@ class TestProject(TestCase):
         self.assertEqual(self.Project.command("change emailaddress NewEmailAddress "), "Error changing email address")
 
     """
-     When the viewCourseAssignments command is entered, it takes one argument:
-
-     If the account does not exist, an error message is displayed, otherwise the assignments are displayed 
+     
+     When the viewCourseAssignments command is entered, it takes 1 arguments, 
+            -instructor account name
+            
+     If the account does not exist, an error message is displayed, otherwise the assignments are displayed. 
 
        Alex - Logging in with a password is a completely different feature that we currently do not support. I think
        that if we did have a login command it would be preformed in the setup section rather than the tests. Example
@@ -642,14 +644,22 @@ class TestProject(TestCase):
        Elizabeth -- we don't need to test for passwords here or have a search command, just the "viewCourseAssignments"
        command 
        Eonshik Kim - some parts removed and some test added
-       Elizabeth -- we could do this one two ways, either see the assignmetns for a certain class or for a certain 
+       Elizabeth -- we could do this one two ways, either see the assignments for a certain class or for a certain 
        person or view all the the assignments for every class.  Which should we do? 
        Natasha -- I think it should probably just show all assignments. By the way it is listed on the assignment,
        it seems like this command is only supposed to show the user's (instructor) assignments.
+       Eonshik - Some changed made
        """
 
-    def test_command_viewCourseAssignments(self):
-        self.assertEqual(self.Project.command("viewCourseAssignments"), "Here are the assignments")
+    def test_command_viewCourseAssignments_success(self):
+        self.assertEqual(self.Project.command("viewCourseAssignments accountName"), "The instructor assignments are:")
+
+    def test_command_viewCourseAssignments_failed(self):
+        self.assertEqual(self.Project.command("viewCourseAssignments accountName"), "Account name doesn't exist")
+
+    def test_command_viewCourseAssignments_no_arg(self):
+        self.assertEqual(self.Project.command("viewCourseAssignments"), "Please type the account name")
+
 
     """
     Elizabeth - I don't think we need to support a search command or create another command that is viewMySchedule
