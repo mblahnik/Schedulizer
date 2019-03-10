@@ -199,8 +199,6 @@ class TestProject(TestCase):
         self.assertEqual(self.Project.command("edit username homephone 262-555-7134"), "The user you specified does not"
                  "exist in the system, please try again")
 
-
-
     """
     send command 
     Only supervisors and administrators can utilize this command 
@@ -257,166 +255,128 @@ class TestProject(TestCase):
     
     """
 
+    def test_command_sendTA_success(self):
+        self.assertEqual(self.Project.command("sendTA courseNumber"), "Email sent successfully to all TAs associated"
+                                                                      "with the specified course")
 
+    def test_command_sendTA_error_course_does_not_exist(self):
+        self.assertEqual(self.Project.command("sendTA courseNumber"), "Error, course does not exist, email not sent")
 
-        """
-           When the deleteAccount command is entered, it takes two arguments, 
-            -name 
-            -title
-           If a name or title is missing, an error message is displayed
-           If the account that the user is trying to delete does not exist, an error 
+    def test_command_sendTA_missingArguments(self):
+        self.assertEqual(self.Project.command("sendTA"), "Your command is missing arguments, please enter the command"
+                                "in the following format: sendTA courseNumber")
+
+    """
+    When the deleteAccount command is entered, it takes two arguments, 
+    -name 
+    -title
+    If a name or title is missing, an error message is displayed
+    If the account that the user is trying to delete does not exist, an error 
            message is displayed. 
-           Alex- I feel like this command should only need one argument, the name.
-           Natasha - I agree that this command should only require the username. 
-           Elizabeth - that's fine it can be changed, I was thinking it would be easier to locate the 
-           account given what type of account it is 
-           Eonshik - I think the argument "name" need be changed "userName" to make the the argument command consistent.
-          Don't we need to consider the case if there are two users have the same user name?
-           
-        """
+                  
+    """
 
     def test_command_deleteAccount(self):
-            self.assertEqual(self.Project.command("deleteAccount userName title"), "Account successfully deleted")
-
-    def test_command_deleteAccount_no_title(self):
-            self.assertEqual(self.Project.command("deleteAccount userName"), "Need to specify a title")
+            self.assertEqual(self.Project.command("deleteAccount userName"), "Account successfully deleted")
 
     def test_command_deleteAccount_no_name(self):
-            self.assertEqual(self.Project.command("deleteAccount title"), "Need to specify a userName")
-
-    def test_command_deleteAccount_no_args(self):
-            self.assertEqual(self.Project.command("deleteAccount"), "Please enter a name and title")
+            self.assertEqual(self.Project.command("deleteAccount"), "There are arguments missing, please enter your "
+                                            "command in the following format: deleteAccount userName")
 
     def test_command_deleteAccount_doesNotExist(self):
-            self.assertEqual(self.Project.command("deleteAccount userName title"), "Account does not exist")
+            self.assertEqual(self.Project.command("deleteAccount userName"), "Error, Account does not exist")
 
 
 
-        """
-        Type numOfAssigned to check how many classes an instructor is currently assigned to
-        type viewSchedule to see the availability schedule
-
-        When the assignInstructorCourse command is entered it takes 3 arguments: 
-        - className
-        - class Number
-        - Instructor user Name
+    """
+    When the assignInstructorCourse command is entered it takes 2 arguments: 
+    - class Number
+    - Instructor user Name
         
-        Alex - Logging in with a password is a completely different feature that we currently do not support. I think
-        that if we did have a login command it would be preformed in the setup section rather than the tests. Example
-        self.ui.command("createAccount accountName title")
-        self.ui.command("editAccount accountName password newPassword")
-        self.ui.command("login accountName newPassword")
-        These tests should only test assigning an instructor to a class and really nothing else.
-        The same goes for  viewing schedule and assigned classes.
-        Natasha - Logging in should be separate. Maybe we'll figure that out with design. Ideally, no one would be
-        able to access the application until they have signed in and would only be able to run commands based on 
-        their privilege.
-        Elizabeth -- I don't think we should worry about extra commands like numOfAssigned and viewSchedule here - just
-        the assignClass command 
-        Eonshik - some test removed and add more tests
-        Elizabeth -- I added a username field to this command so they can specify who they want to be assigned to the class
-        also changed the command name to assignInstructorCourse so it matches the assignTACourse below. 
-        """
-
-        """
-        Elizabeth -- I don't think we need to worry about these two tests here, otherwise we are adding extra commands, just
-        worry about testing the assign command. 
-   
-            def test_command_can_not_view(self):
-                self.assertEqual(self.Project.command("viewSchedule"), "The schedule hasn't been uploaded yet")
-
-            def test_command_can_not_view_assigned(self):
-                self.assertEqual(self.Project.command("numOfAssigned"), "Can't view number of classed that are assigned to you")
         
-        """
+    """
 
-    def test_command__assignInstructorCourse_class_number_missing(self):
-        self.assertEqual(self.Project.command("assignInstructorCourse className userName"), "Class Number is missing")
+    def test_command_assignInstructorCourse_missingArguments(self):
+        self.assertEqual(self.Project.command("assignInstructorCourse classNumber"), "There are arguments missing,"
+                        "Please enter your command in the following format: assignInstructorCourse classNumber userName")
 
-    def test_command_assignInstructorCourse_class_name_missing(self):
-        self.assertEqual(self.Project.command("assignInstructorCourse classNumber userName"), "Class Name is missing")
-
-    def test_command_assignInstructorCourse_no_userName(self):
-        self.assertEqual(self.Project.command("assignInstructorCourse className classNumber"), "Username is missing")
+    def test_command_assignInstructorCourse_missingArguments2(self):
+        self.assertEqual(self.Project.command("assignInstructorCourse userName"), "There are arguments missing,"
+                        "Please enter your command in the following format: assignInstructorCourse classNumber userName")
 
     def test_command_assignInstructorCourse_no_args(self):
-        self.assertEqual(self.Project.command("assignInstructorCourse"), "Please provide the class name, class number and the "
-                                                              "username of who you want to assign to the class")
-    """
-    Elizabeth -- do we need to worry about conflicts? 
-    def test_command_conflicted_class(self):
-        self.assertEqual(self.Project.command("assign className classNumber"), "This class was already assigned")
-    """
+        self.assertEqual(self.Project.command("assignInstructorCourse"), "There are arguments missing,"
+                        "Please enter your command in the following format: assignInstructorCourse classNumber userName")
+
+    def test_command_assignInstructorCourse_conflict(self):
+        self.assertEqual(self.Project.command("assignInstructorCourse classNumber userName"), "This class was already assigned")
 
     def test_command_assignInstructorCourse_success(self):
-        self.assertEqual(self.Project.command("assignInstructorCourse className classNumber userName"), "Assignment was successful")
+        self.assertEqual(self.Project.command("assignInstructorCourse classNumber userName"), "Assignment was successful")
 
     """
-           When AssignTACourse command is entered, it takes two arguments:
-               --TA username
-               --Course number
-           Assignment may fail if:
-               --Scheduling conflict for TA
-               --Max TAs assigned to course
-               --TA username is invalid or missing
-               --Course number is invalid or missing
-               --No arguments
-           Alex - We don't have worry about scheduling conflicts for our program. That test is unneeded
-       """
+    When assignTACourse command is entered, it takes two arguments:
+    --TA username
+    --Course number
+    Assignment may fail if:
+    --Scheduling conflict for TA
+    --Max TAs assigned to course
+    --TA username is invalid or missing
+    --Course number is invalid or missing
+    --No arguments
+         
+    """
 
-    def test_command_AssignTACourse_success(self):
-        self.assertEqual(self.Project.command("AssignTACourse accountName courseNumber"), "Assignment successful")
+    def test_command_assignTACourse_success(self):
+        self.assertEqual(self.Project.command("assignTACourse userName courseNumber"), "Assignment successful")
 
-    def test_command_AssignTACourse_missingTA(self):
-        self.assertEqual(self.Project.command("createAccount title"), "Missing TA Username.")
+    def test_command_assignTACourse_missingTA(self):
+        self.assertEqual(self.Project.command("assignTACourse courseNumber"), "Your command is missing arguments, please enter"
+                                "your command in the following format: assignTACourse userName classNumber")
 
-    def test_command_AssignTACourse_invalidTA(self):
-        self.assertEqual(self.Project.command("AssignTACourse accountName  courseNumber"), "Invalid TA username.")
+    def test_command_assignTACourse_invalidTA(self):
+        self.assertEqual(self.Project.command("assignTACourse userName courseNumber"), "Invalid TA username.")
 
-    def test_command_AssignTACourse_missingCourse(self):
-        self.assertEqual(self.Project.command("AssignTACourse accountName"), "Missing course number.")
+    def test_command_assignTACourse_missingCourse(self):
+        self.assertEqual(self.Project.command("assignTACourse accountName"), "Your command is missing arguments, please enter"
+                                "your command in the following format: assignTACourse userName classNumber")
 
-    def test_command_AssignTACourse_invalidCourse(self):
-        self.assertEqual(self.Project.command("AssignTACourse accountName  courseNumber"), "Invalid course number.")
+    def test_command_assignTACourse_invalidCourse(self):
+        self.assertEqual(self.Project.command("assignTACourse accountName courseNumber"), "Invalid course number.")
 
-    def test_command_AssignTACourse_Maximum(self):
-        self.assertEqual(self.Project.command("AssignTACourse accountName  courseNumber"),
-                         "Maximum TAs assigned to course.")
+    def test_command_assignTACourse_Maximum(self):
+        self.assertEqual(self.Project.command("assignTACourse userName courseNumber"),
+                         "TA has exceeded assignment limit, TA not assigned")
 
-    def test_command_AssignTACourse_schedulingConflict(self):
-        self.assertEqual(self.Project.command("AssignTACourse accountName  courseNumber"), "Scheduling conflict.")
+    def test_command_assignTACourse_schedulingConflict(self):
+        self.assertEqual(self.Project.command("assignTACourse userName courseNumber"), "Scheduling conflict encounterd,"
+                                                                                       "TA not assigned.")
+    def test_command_assignTACourse_noArgs(self):
+        self.assertEqual(self.Project.command("assignTACourse"), "Your command is missing arguments, please enter"
+                                "your command in the following format: assignTACourse userName classNumber")
 
-    def test_command_AssignTACourse_noArgs(self):
-        self.assertEqual(self.Project.command("AssignTACourse"), "Missing TA username and course number.")
 
 
-
-        """
-    
-        When the viewPublicData command is entered it takes one argument: 
-        -accountName 
+    """
+    When the viewInfo command is entered it takes one argument: 
+    -accountName 
         
-        If the account does not exist, an error message is displayed, otherwise, public data is displayed
+    If the account does not exist, an error message is displayed, otherwise, public data is displayed
       
-        """
+    """
+
+    def test_command_viewInfo_success(self):
+        self.asserEqual(self.Project.command("viewInfo userName"), "")
+
+    def test_command_viewInfo_user_does_not_exist(self):
+        self.asserEqual(self.Project.command("viewInfo userName"), "Account does not exist")
+
+    def test_command_viewInfo_no_accountName(self):
+        self.assertEqual(self.Project.command("viewInfo"), "Your command is missing arguments, please enter your command"
+                                                           "in the following format: viewInfo userName")
 
 
-
-    def test_command_viewPublicData_success(self):
-        self.asserEqual(self.Project.command("viewPublicData accountName"),"Name: accountName"
-                                                              "email: accountEmail"
-                                                              "Office: officeNumber"
-                                                              "Phone: officePhone"
-                                                              "Office Hours: officeHours")
-
-    def test_command_viewPublicData_user_does_not_exist(self):
-        self.asserEqual(self.Project.command("viewPublicData accountName"), "Account does not exist")
-
-    def test_command_viewPublicData_no_accountName(self):
-        self.assertEqual(self.Project.command("viewPUblicData"), "Please enter account name to view data")
-
-
-        """
+    """
         
         Edit own contact information starts here
         Elizabeth -- I think that all the specific commands are out of our scope, we should just be testing the 
