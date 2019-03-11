@@ -1,6 +1,5 @@
 import unittest
-from account import account
-from test_instructor import TestInstructor
+from Tests.test_instructor import TestInstructor
 def main():
     """Runs the unit tests"""
 
