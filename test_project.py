@@ -11,14 +11,28 @@ class TestProject(TestCase):
         self.ui.command("login accountName newPassword")
 
 
-    """ 
-    createAccount command
-    When the createAccount command is entered, it takes 3 arguments:
-    -User name 
-    -Title
-    -Email 
+
+    """
+        login command
+        When the login command is entered, it takes two arguments
+        -user name
+        -password
     
-    If arguments are missing from the command, an error message is displayed and the command is not executed.  
+    """
+    def test_command_login_success(self):
+        self.assertEqual(self.Project.command("login userName password"), "Login success")
+
+    def test_command_login_failure(self):
+        self.assertEqual(self.Project.command("login userName password"), "Login failed")
+
+    """ 
+        createAccount command
+        When the createAccount command is entered, it takes 3 arguments:
+        -User name 
+        -Title
+        -Email 
+    
+        If arguments are missing from the command, an error message is displayed and the command is not executed.  
     """
 
     def test_command_createAccount_success(self):
@@ -203,20 +217,18 @@ class TestProject(TestCase):
                  "exist in the system, please try again")
 
     """
-    send command 
-    Only supervisors and administrators can utilize this command 
-    When the sendOutNotification command is entered it takes 2-3 arguments: 
+        send command 
+        Only supervisors and administrators can utilize this command 
+        When the sendOutNotification command is entered it takes 2-3 arguments: 
 
-    -send -a
-    To send notification to all users.
+        -send -a
+        To send notification to all users.
 
-    -send accountNames -s
-    To send notification to specific users.
+        -send accountNames -s
+        To send notification to specific users.
 
-    -send  accountName
-    to send notification to one person
-
-    
+        -send  accountName
+        to send notification to one person
     """
 
     def test_command_send_success(self):
@@ -252,10 +264,9 @@ class TestProject(TestCase):
 
 
     """
-    sendTA command
-    The sendTA command takes one argument 
-    -classNumber
-    
+        sendTA command
+        The sendTA command takes one argument 
+        -classNumber
     """
 
     def test_command_sendTA_success(self):
@@ -270,13 +281,12 @@ class TestProject(TestCase):
                                 "in the following format: sendTA courseNumber")
 
     """
-    When the deleteAccount command is entered, it takes two arguments, 
-    -name 
-    -title
-    If a name or title is missing, an error message is displayed
-    If the account that the user is trying to delete does not exist, an error 
-           message is displayed. 
-                  
+        When the deleteAccount command is entered, it takes two arguments, 
+        -name 
+        -title
+        If a name or title is missing, an error message is displayed
+        If the account that the user is trying to delete does not exist, an error 
+           message is displayed.          
     """
 
     def test_command_deleteAccount(self):
@@ -295,7 +305,6 @@ class TestProject(TestCase):
         When the assignInstructorCourse command is entered it takes 2 arguments: 
         - class Number
         - Instructor user Name
-        
     """
 
     def test_command_assignInstructorCourse_missingArguments(self):
