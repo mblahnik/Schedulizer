@@ -44,19 +44,22 @@ class TestProject(TestCase):
         self.assertEqual(self.Project.command("createAccount username title email"), "Account successfully created")
 
     def test_command_createAccount_missingArguments(self):
-        self.asserEqual(self.Project.command("createAccount username"), "Your command is missing arguments, please enter"
-                        "your command in the following format: createAccount username title email")
+        self.asserEqual(self.Project.command("createAccount username"),
+                        "Your command is missing arguments, please enter your command in the following format: "
+                        "createAccount username title email")
 
     def test_command_createAccount_missingArguments2(self):
-        self.asserEqual(self.Project.command("createAccount username title"), "Your command is missing arguments, please enter"
-                        "your command in the following format: createAccount username title email")
+        self.asserEqual(self.Project.command("createAccount username title"),
+                        "Your command is missing arguments, please enter your command in the following format: "
+                        "createAccount username title email")
 
     def test_command_createAccount_invalidTitle(self):
         self.assertEqual(self.Project.command("createAccount accountName cashier"), "Please enter a valid title")
 
     def test_command_createAccount_no_args(self):
-        self.assertEqual(self.Project.command("createAccount"), "Your command is missing arguments, please enter"
-                        "your command in the following format: createAccount username title email")
+        self.assertEqual(self.Project.command("createAccount"),
+                         "Your command is missing arguments, please enter your command in the following format: "
+                         "createAccount username title email")
 
     def test_command_createAccount_already_exists(self):
         self.assertEqual(self.Project.command("createAccount accountName title email"), "Account already exists")
@@ -107,8 +110,9 @@ class TestProject(TestCase):
                          "createCourse courseName courseNumber daysOfWeek start end")
 
     def test_command_createCourse_no_args(self):
-        self.assertEqual(self.Project.command("createCourse"), "Your command is missing arguments, please enter "
-                        "your command in the following form: createCourse courseName courseNumber daysOfWeek start end")
+        self.assertEqual(self.Project.command("createCourse"),
+                         "Your command is missing arguments, please enter your command in the following form: "
+                         "createCourse courseName courseNumber daysOfWeek start end")
 
     def test_command_createCourse_course_exists(self):
         self.assertEqual(self.Project.command("createCourse courseName courseNumber daysOfWeek start end"),
@@ -178,8 +182,9 @@ class TestProject(TestCase):
             - Office hours (a start time, an end time and days of office hours) 
             - Address 
             - Office Number
-            - Office phone Number 
-        -Updated information 
+            - Office phone Number
+            - Password 
+        -The new information to replace the current information 
         
         If the user does not exist, an error message is displayed.
         If command arguments are missing, an error message is displayed. 
@@ -187,39 +192,50 @@ class TestProject(TestCase):
        """
 
     def test_command_edit_homePhone_success(self):
-        self.asserEqual(self.Project.command("edit username homephone 262-555-7134"), "Home phone successfully updated")
+        self.asserEqual(self.Project.command("edit username homephone 262-555-7134"),
+                        "Home phone successfully updated")
 
     def test_command_edit_email_success(self):
-        self.assertEqual(self.Project.command("edit username email timmy345@uwm.edu"), "Email successfully updated")
+        self.assertEqual(self.Project.command("edit username email timmy345@uwm.edu"),
+                         "Email successfully updated")
 
     def test_command_edit_office_hours_success(self):
-        self.assertEqual(self.Project.command("edit username officehours 1500 1600 MW"), "Office hours successfully updated")
+        self.assertEqual(self.Project.command("edit username officehours 1500 1600 MW"),
+                         "Office hours successfully updated")
 
     def test_command_edit_address_success(self):
         self.assertEqual(self.Project.command("edit username address 6789 Hilly Avenue Milwaukee WI 53218"),
-                "Address successfully updated")
+                         "Address successfully updated")
 
     def test_command_edit_officeNumber_success(self):
-        self.assertEqual(self.Project.command("edit username officeNumber 5679"), "Office number successfully updated")
+        self.assertEqual(self.Project.command("edit username officeNumber 5679"),
+                         "Office number successfully updated")
 
     def test_command_edit_officePhone_success(self):
-        self.assertEqual(self.Project.command("edit username officePhone 262-789-5476"), "Office phone successfully updated")
+        self.assertEqual(self.Project.command("edit username officePhone 262-789-5476"),
+                         "Office phone successfully updated")
+
+    def test_command_edit_password_success(self):
+        self.assertEqual(self.Project.command("edit username password newPassword"), "Password successfully changed")
 
     def test_command_edit_error_missing_args1(self):
-        self.assertEqual(self.Project.command("edit"), "There are missing arguments in your command. Please enter your "
-                "command in the following format: edit username field newInformation")
+        self.assertEqual(self.Project.command("edit"),
+                         "There are missing arguments in your command. Please enter your command in the following "
+                         "format: edit username field newInformation")
 
     def test_command_edit_error_missing_args2(self):
-        self.assertEqual(self.Project.command("edit username"), "There are missing arguments in your command, Please "
-                "enter you command in the following format: edit username field newInformation")
+        self.assertEqual(self.Project.command("edit username"),
+                         "There are missing arguments in your command, Please enter you command in the following "
+                         "format: edit username field newInformation")
 
     def test_command_edit_error_missing_args3(self):
-        self.assertEqual(self.Project.command("edit username homephone"), "There are missing arguments in your command, Please "
-                "enter you command in the following format: edit username field newInformation")
+        self.assertEqual(self.Project.command("edit username homePhone"),
+                         "There are missing arguments in your command, Please enter you command in the following "
+                         "format: edit username field newInformation")
 
     def test_command_edit_error_user_does_not_exist(self):
-        self.assertEqual(self.Project.command("edit username homephone 262-555-7134"), "The user you specified does not"
-                 "exist in the system, please try again")
+        self.assertEqual(self.Project.command("edit username homePhone 262-555-7134"),
+                         "The user you specified does not exist in the system, please try again")
 
     """
         send command 
@@ -240,14 +256,16 @@ class TestProject(TestCase):
         self.assertEqual(self.Project.command("sendNotification accountName"), "Notification was sent successfully")
 
     def test_command_send_all_success(self):
-        self.assertEqual(self.Project.command("sendNotification -a"), "Notification was sent to all users successfully")
+        self.assertEqual(self.Project.command("sendNotification -a"),
+                         "Notification was sent to all users successfully")
 
     def test_command_send_specific_success(self):
         self.assertEqual(self.Project.command("sendNotification accountName(s) -s"),
                          "Notification was sent to specific people successfully")
 
     def test_command_send_error(self):
-        self.assertEqual(self.Project.command("sendNotification accountName"), "We weren't able to send a notification")
+        self.assertEqual(self.Project.command("sendNotification accountName"),
+                         "We weren't able to send a notification")
 
     def test_command_send_all_error(self):
         self.assertEqual(self.Project.command("sendNotification accountName -a"),
@@ -258,7 +276,8 @@ class TestProject(TestCase):
                          "We weren't able to send a notification to specific people")
 
     def test_command_send_no_argument(self):
-        self.assertEqual(self.Project.command("sendNotification -s"), "Please type the user names that you want to sent")
+        self.assertEqual(self.Project.command("sendNotification -s"),
+                         "Please type the user names that you want to sent")
 
     def test_command_send_no_argument_2(self):
             self.assertEqual(self.Project.command("sendNotification -a"),
@@ -282,8 +301,9 @@ class TestProject(TestCase):
         self.assertEqual(self.Project.command("sendTA courseNumber"), "Error, course does not exist, email not sent")
 
     def test_command_sendTA_missingArguments(self):
-        self.assertEqual(self.Project.command("sendTA"), "Your command is missing arguments, please enter the command"
-                                "in the following format: sendTA courseNumber")
+        self.assertEqual(self.Project.command("sendTA"),
+                         "Your command is missing arguments, please enter the command in the following format: "
+                         "sendTA courseNumber")
 
     """
         When the deleteAccount command is entered, it takes two arguments, 
@@ -298,8 +318,9 @@ class TestProject(TestCase):
             self.assertEqual(self.Project.command("deleteAccount userName"), "Account successfully deleted")
 
     def test_command_deleteAccount_no_name(self):
-            self.assertEqual(self.Project.command("deleteAccount"), "There are arguments missing, please enter your "
-                                            "command in the following format: deleteAccount userName")
+            self.assertEqual(self.Project.command("deleteAccount"),
+                             "There are arguments missing, please enter your command in the following format: "
+                             "deleteAccount userName")
 
     def test_command_deleteAccount_doesNotExist(self):
             self.assertEqual(self.Project.command("deleteAccount userName"), "Error, Account does not exist")
@@ -313,22 +334,27 @@ class TestProject(TestCase):
     """
 
     def test_command_assignInstructorCourse_missingArguments(self):
-        self.assertEqual(self.Project.command("assignInstructorCourse classNumber"), "There are arguments missing,"
-                        "Please enter your command in the following format: assignInstructorCourse classNumber userName")
+        self.assertEqual(self.Project.command("assignInstructorCourse classNumber"),
+                         "There are arguments missing, Please enter your command in the following format: "
+                         "assignInstructorCourse classNumber userName")
 
     def test_command_assignInstructorCourse_missingArguments2(self):
-        self.assertEqual(self.Project.command("assignInstructorCourse userName"), "There are arguments missing,"
-                        "Please enter your command in the following format: assignInstructorCourse classNumber userName")
+        self.assertEqual(self.Project.command("assignInstructorCourse userName"),
+                         "There are arguments missing, Please enter your command in the following format: "
+                         "assignInstructorCourse classNumber userName")
 
     def test_command_assignInstructorCourse_no_args(self):
-        self.assertEqual(self.Project.command("assignInstructorCourse"), "There are arguments missing,"
-                        "Please enter your command in the following format: assignInstructorCourse classNumber userName")
+        self.assertEqual(self.Project.command("assignInstructorCourse"),
+                         "There are arguments missing, Please enter your command in the following format: "
+                         "assignInstructorCourse classNumber userName")
 
     def test_command_assignInstructorCourse_conflict(self):
-        self.assertEqual(self.Project.command("assignInstructorCourse classNumber userName"), "This class was already assigned")
+        self.assertEqual(self.Project.command("assignInstructorCourse classNumber userName"),
+                         "This class was already assigned")
 
     def test_command_assignInstructorCourse_success(self):
-        self.assertEqual(self.Project.command("assignInstructorCourse classNumber userName"), "Assignment was successful")
+        self.assertEqual(self.Project.command("assignInstructorCourse classNumber userName"),
+                         "Assignment was successful")
 
     """
         When assignTACourse command is entered, it takes two arguments:
@@ -346,15 +372,17 @@ class TestProject(TestCase):
         self.assertEqual(self.Project.command("assignTACourse userName courseNumber"), "Assignment successful")
 
     def test_command_assignTACourse_missingTA(self):
-        self.assertEqual(self.Project.command("assignTACourse courseNumber"), "Your command is missing arguments, please enter"
-                                "your command in the following format: assignTACourse userName classNumber")
+        self.assertEqual(self.Project.command("assignTACourse courseNumber"),
+                         "Your command is missing arguments, please enter your command in the following format: "
+                         "assignTACourse userName classNumber")
 
     def test_command_assignTACourse_invalidTA(self):
         self.assertEqual(self.Project.command("assignTACourse userName courseNumber"), "Invalid TA username.")
 
     def test_command_assignTACourse_missingCourse(self):
-        self.assertEqual(self.Project.command("assignTACourse accountName"), "Your command is missing arguments, please enter"
-                                "your command in the following format: assignTACourse userName classNumber")
+        self.assertEqual(self.Project.command("assignTACourse accountName"),
+                         "Your command is missing arguments, please enter your command in the following format: "
+                         "assignTACourse userName classNumber")
 
     def test_command_assignTACourse_invalidCourse(self):
         self.assertEqual(self.Project.command("assignTACourse accountName courseNumber"), "Invalid course number.")
@@ -364,24 +392,26 @@ class TestProject(TestCase):
                          "TA has exceeded assignment limit, TA not assigned")
 
     def test_command_assignTACourse_schedulingConflict(self):
-        self.assertEqual(self.Project.command("assignTACourse userName courseNumber"), "Scheduling conflict encounterd,"
-                                                                                       "TA not assigned.")
+        self.assertEqual(self.Project.command("assignTACourse userName courseNumber"),
+                         "Scheduling conflict encounterd, TA not assigned.")
+
     def test_command_assignTACourse_noArgs(self):
-        self.assertEqual(self.Project.command("assignTACourse"), "Your command is missing arguments, please enter"
-                                "your command in the following format: assignTACourse userName classNumber")
+        self.assertEqual(self.Project.command("assignTACourse"),
+                         "Your command is missing arguments, please enter your command in the following format: "
+                         "assignTACourse userName classNumber")
 
 
     """
-    assignTALab
-    When the assignTALab command is entered, it takes three arguments
-    -userName of TA to be assigned
-    -classNumber
-    -Lab section number 
-    
+        assignTALab
+        -When the assignTALab command is entered, it takes three arguments
+        -userName of TA to be assigned
+        -classNumber
+        -Lab section number 
     """
 
     def test_command_assignTALab_success(self):
-        self.assertEqual(self.Project.command("assignTALab userName classNumber labSectionNumber"), "TA succesfully assigned")
+        self.assertEqual(self.Project.command("assignTALab userName classNumber labSectionNumber"),
+                         "TA successfully assigned")
 
     def test_command_assignTALab_argumentsMissing(self):
         self.assertEqual(self.Project.command("assignTALab username classNumber"),
@@ -416,19 +446,21 @@ class TestProject(TestCase):
         self.asserEqual(self.Project.command("viewInfo userName"), "Account does not exist")
 
     def test_command_viewInfo_no_accountName(self):
-        self.assertEqual(self.Project.command("viewInfo"), "Your command is missing arguments, please enter your command"
-                                "in the following format: viewInfo userName")
+        self.assertEqual(self.Project.command("viewInfo"),
+                         "Your command is missing arguments, please enter your command in the following format: "
+                         "viewInfo userName")
 
     """
         editInfo command
         The editInfo command does not take a userName because it is implied that the user will be editing his/her 
-        own information
+        own information when he/she is logged into the system. 
         When the editInfo command is entered it takes two arguments: 
-        -Field that needs editing
+        -Field that needs editing, can include: 
             -homePhone
             -email
             -officeHours (start time, end time and day(s) of week entered as a string)
             -Address (entered as a string)
+            -Password 
         -What the field should be changed to. 
     
     """
@@ -440,22 +472,26 @@ class TestProject(TestCase):
         self.assertEqual(self.Project.command("editInfo email timmy123@uwm.edu"), "Email successfully updated")
 
     def test_command_editInfo_officeHours(self):
-        self.assertEqual(self.Project.command("editInfo officeHours ""start end daysOfWeek"), "Office hours successfully"
-                                                                                            "updated")
+        self.assertEqual(self.Project.command("editInfo officeHours ""start end daysOfWeek"),
+                         "Office hours successfully updated")
 
     def test_command_editInfo_address(self):
-        self.assertEqual(self.Project.command("editInfo address ""6785 Holly Lane Milwaukee WI 54389"), "Address "
-                                                                                        "successfully updated")
+        self.assertEqual(self.Project.command("editInfo address ""6785 Holly Lane Milwaukee WI 54389"),
+                         "Address successfully updated")
+
+    def test_command_editInfo_password(self):
+        self.assertEqual(self.Project.command("editInfo password newPassword"), "Password successfully changed.")
 
     def test_command_editInfo_missingArgument(self):
-        self.assertEqual(self.Project.command("editInfo homePhone"), "Your command is missing arguments, please enter"
-                                "your command in the following format: editInfo field newInformation")
-
-
+        self.assertEqual(self.Project.command("editInfo homePhone"),
+                         "Your command is missing arguments, please enter your command in the following format: "
+                         "editInfo field newInformation")
 
     """
         viewCourseAssignments
         When the viewCourseAssignments command is entered, it takes no arguments 
+        It is implied that the viewCourseAssignments will display the course assignments 
+        for the instructor who is currently logged in to the system. 
     
     """
 
@@ -469,14 +505,16 @@ class TestProject(TestCase):
 
        If the class Number is not entered, an error message is displayed
        If the class does not exist, an error message is displayed 
+       
     """
 
     def test_command_viewTAAssignments_success(self):
         self.assertEqual(self.Project.command("viewTAAssignments classNumber"), "The TA Assignments are: ")
 
     def test_command_viewTAAssignments_noClassNum(self):
-        self.assertEqual(self.Project.command("viewTAAssignments"), "Your command is missing arguments, please enter the"
-                                    "command in the following format: viewTAAssignments classNumber")
+        self.assertEqual(self.Project.command("viewTAAssignments"),
+                         "Your command is missing arguments, please enter the command in the following format: "
+                         "viewTAAssignments classNumber")
 
     def test_command_viewTAAssignments_classDoesNotExist(self):
         self.assertEqual(self.Project.command("viewTAAssignments classNumber"), "Class does not exist")
