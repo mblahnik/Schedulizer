@@ -6,6 +6,9 @@ class TestProject(TestCase):
 
     def setUp(self):
         self.Project = Project()
+        self.ui.command("createAccount accountName title")
+        self.ui.command("editAccount accountName password newPassword")
+        self.ui.command("login accountName newPassword")
 
 
     """ 
@@ -289,10 +292,9 @@ class TestProject(TestCase):
 
 
     """
-    When the assignInstructorCourse command is entered it takes 2 arguments: 
-    - class Number
-    - Instructor user Name
-        
+        When the assignInstructorCourse command is entered it takes 2 arguments: 
+        - class Number
+        - Instructor user Name
         
     """
 
@@ -315,16 +317,15 @@ class TestProject(TestCase):
         self.assertEqual(self.Project.command("assignInstructorCourse classNumber userName"), "Assignment was successful")
 
     """
-    When assignTACourse command is entered, it takes two arguments:
-    --TA username
-    --Course number
-    Assignment may fail if:
-    --Scheduling conflict for TA
-    --Max TAs assigned to course
-    --TA username is invalid or missing
-    --Course number is invalid or missing
-    --No arguments
-         
+        When assignTACourse command is entered, it takes two arguments:
+        --TA username
+        --Course number
+        Assignment may fail if:
+        --Scheduling conflict for TA
+        --Max TAs assigned to course
+        --TA username is invalid or missing
+        --Course number is invalid or missing
+        --No arguments    
     """
 
     def test_command_assignTACourse_success(self):
@@ -358,11 +359,10 @@ class TestProject(TestCase):
 
 
     """
-    When the viewInfo command is entered it takes one argument: 
-    -accountName 
+        When the viewInfo command is entered it takes one argument: 
+        -accountName 
         
-    If the account does not exist, an error message is displayed, otherwise, public data is displayed
-      
+        If the account does not exist, an error message is displayed, otherwise, public data is displayed   
     """
 
     def test_command_viewInfo_success(self):
@@ -373,129 +373,64 @@ class TestProject(TestCase):
 
     def test_command_viewInfo_no_accountName(self):
         self.assertEqual(self.Project.command("viewInfo"), "Your command is missing arguments, please enter your command"
-                                                           "in the following format: viewInfo userName")
+                                "in the following format: viewInfo userName")
+
+    """
+        editInfo command
+        The editInfo command does not take a userName because it is implied that the user will be editing his/her 
+        own information
+        When the editInfo command is entered it takes two arguments: 
+        -Field that needs editing
+            -homePhone
+            -email
+            -officeHours (start time, end time and day(s) of week entered as a string)
+            -Address (entered as a string)
+        -What the field should be changed to. 
+    
+    """
+
+    def test_command_editInfo_homePhone_success(self):
+        self.assertEqual(self.Project.command("editInfo homePhone 262-777-8888"), "Home phone successfully updated")
+
+    def test_command_editInfo_email_success(self):
+        self.assertEqual(self.Project.command("editInfo email timmy123@uwm.edu"), "Email successfully updated")
+
+    def test_command_editInfo_officeHours(self):
+        self.assertEqual(self.Project.command("editInfo ""officeHours start end daysOfWeek"))
+
+    def test_command_editInfo_address(self):
+        self.assertEqual(self.Project.command("editInfo ""address 6785 Holly Lane Milwaukee WI 54389"))
+
+    def test_command_editInfo_missingArgument(self):
+        self.assertEqual(self.Project.command("editInfo homePhone"), "Your command is missing arguments, please enter"
+                                "your command in the following format: editInfo field newInformation")
+
 
 
     """
-        
-        Edit own contact information starts here
-        Elizabeth -- I think that all the specific commands are out of our scope, we should just be testing the 
-        "editMyInformation" command
-        Eonshik - It would be better to change my address - > myAddress, my phone -> myPhone.
-        """
-
+        viewCourseAssignments
+        When the viewCourseAssignments command is entered, it takes no arguments 
+    
     """
-        Elizabeth -- I think something like this would suffice for this command for now, I don't think we need to dive 
-        into all the specific commands that could go along with this like "editPhoneNumber" etc etc. I do not recall 
-        why this is different than editAccount. 
-
-        def test_command_editInformation_success(self):
-            self.assertEqual(self.Project.command("editInformation username title"), 
-                             "Account located.  Please edit below")
-
-        def test_command_editInformation_user_does_not_exist(self):
-            self.assertEqual(self.Project.command("editInformation username title"), "User does not exist")
-
-        def test_command_editInformation_no_username(self):
-            self.assertEqual(self.Project.command("editInformation title"), "No username entered, username required")
-
-        def test_command_editInformation_no_title(self):
-            self.assertEqual(self.Project.command("editInformation userName"), "No title entered, title required")
-
-
-        """
-
-    def test_change_phone_command_correct(self):
-        self.assertEqual(self.Project.command("change my phone newPhoneNumber"), "phone number has been changed")
-
-    def test_change_phone_command_no_number(self):
-        self.assertEqual(self.Project.command("change my phone"), "Error changing number")
-
-    def test_change_phone_command_wrong_number_format(self):
-        self.assertEqual(self.Project.command("change my phone IncorectNumberFormat"), "Error changing number")
-
-    def test_change_phone_command_no_username(self):
-        self.assertEqual(self.Project.command("change phone NewPhoneNumber "), "Error changing number")
-
-    def test_change_adress_command_correct(self):
-        self.assertEqual(self.Project.command("change my adress NewAdress"), "adress has been changed")
-
-    def test_change_adress_command_no_adress(self):
-        self.assertEqual(self.Project.command("change my adress"), "Error changing adress")
-
-    def test_change_adress_command_no_username(self):
-        self.assertEqual(self.Project.command("change adress NewAdress "), "Error changing adress")
-
-    def test_change_Hphone_command_correct(self):
-        self.assertEqual(self.Project.command("change my Hphone newPhoneNumber"), "Hphone number has been changed")
-
-    def test_change_Hphone_command_no_number(self):
-        self.assertEqual(self.Project.command("change my Hphone"), "Error changing Hnumber")
-
-    def test_change_Hphone_command_no_username(self):
-        self.assertEqual(self.Project.command("change Hphone NewPhoneNumber "), "Error changing Hnumber")
-
-    def test_change_Hphone_command_wrong_number_format(self):
-        self.assertEqual(self.Project.command("change my Hphone IncorectNumberFormat"), "Error changing Hnumber")
-
-    def test_change_Eadress_command_correct(self):
-        self.assertEqual(self.Project.command("change my emailadress NewEmailAdress"), "emailadress has been changed")
-
-    def test_change_Eadress_command_no_adress(self):
-        self.assertEqual(self.Project.command("change my emailadress"), "Error changing emailadress")
-
-    def test_change_Eadress_command_no_username(self):
-        self.assertEqual(self.Project.command("change emailadress NewEmailAdress "), "Error changing emailadress")
-
-    """
-     When the viewCourseAssignments command is entered, it takes one argument:
-     
-     If the account does not exist, an error message is displayed, otherwise the assignments are displayed 
-     
-       Alex - Logging in with a password is a completely different feature that we currently do not support. I think
-       that if we did have a login command it would be preformed in the setup section rather than the tests. Example
-       self.ui.command("createAccount accountName title")
-       self.ui.command("editAccount accountName password newPassword")
-       self.ui.command("login accountName newPassword")
-       The command you should be focusing on here is viewCourseAssignments 
-       Elizabeth -- we don't need to test for passwords here or have a search command, just the "viewCourseAssignments"
-       command 
-       Eonshik Kim - some parts removed and some test added
-       Elizabeth -- we could do this one two ways, either see the assignmetns for a certain class or for a certain 
-       person or view all the the assignments for every class.  Which should we do? 
-       
-       """
 
     def test_command_viewCourseAssignments(self):
-        self.assertEqual(self.Project.command("viewCourseAssignments"), "Here are the assignments")
+        self.assertEqual(self.Project.command("viewCourseAssignments"), "")
+
 
     """
-    Elizabeth - I don't think we need to support a search command or create another command that is viewMySchedule
-    
-    def test_command_schedule(self):
-        self.assertEqual(self.Project.command("viewMySchedule"), "The schedule hasn't been uploaded yet")
-
-    def test_command_cannot_find_name(self):
-        self.assertEqual(self.Project.command("search accountName"), "Can't fine the name of the professor, retype it")
-
-    def test_command_username_not_typed(self):
-        self.assertEqual(self.Project.command("search"), "Type the username")
-    """
-
-    """
-       When the ViewTAAssignments command is entered, it takes one argument
+       When the viewTAAssignments command is entered, it takes one argument
        - class Number 
 
        If the class Number is not entered, an error message is displayed
        If the class does not exist, an error message is displayed 
+    """
 
-       """
+    def test_command_viewTAAssignments_success(self):
+        self.assertEqual(self.Project.command("viewTAAssignments classNumber"), "The TA Assignments are: ")
 
-    def test_command_ViewTAAssignments_success(self):
-        self.assertEqual(self.Project.command("ViewTAAssignments classNumber"), "The TA Assignments are: ")
+    def test_command_viewTAAssignments_noClassNum(self):
+        self.assertEqual(self.Project.command("viewTAAssignments"), "Your command is missing arguments, please enter the"
+                                    "command in the following format: viewTAAssignments classNumber")
 
-    def test_command_ViewTAAssignments_noClassNum(self):
-        self.assertEqual(self.Project.command("ViewTAAssignments"), "Error, no class number entered")
-
-    def test_command_ViewTAAssignments_classDoesNotExist(self):
-        self.assertEqual(self.Project.command("ViewTAAssignments classNumber"), "Class does not exist")
+    def test_command_viewTAAssignments_classDoesNotExist(self):
+        self.assertEqual(self.Project.command("viewTAAssignments classNumber"), "Class does not exist")
