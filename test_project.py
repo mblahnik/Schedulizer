@@ -1,7 +1,12 @@
 from unittest import TestCase
 from Project import Project
 
-
+"""
+TODO: 
+add permission denied tests 
+add password field to edit and editInfo
+finish login command 
+"""
 class TestProject(TestCase):
 
     def setUp(self):
@@ -366,6 +371,36 @@ class TestProject(TestCase):
                                 "your command in the following format: assignTACourse userName classNumber")
 
 
+    """
+    assignTALab
+    When the assignTALab command is entered, it takes three arguments
+    -userName of TA to be assigned
+    -classNumber
+    -Lab section number 
+    
+    """
+
+    def test_command_assignTALab_success(self):
+        self.assertEqual(self.Project.command("assignTALab userName classNumber labSectionNumber"), "TA succesfully assigned")
+
+    def test_command_assignTALab_argumentsMissing(self):
+        self.assertEqual(self.Project.command("assignTALab username classNumber"),
+                         "Your argument is missing commands, please enter your command in the following format: "
+                         "assignTALab username classNumber labSectionNumber")
+
+    def test_command_assignTALab_argumentsMissing(self):
+        self.assertEqual(self.Project.command("assignTALab userName"),
+                         "Your argument is missing commands, please enter your command in the following format: "
+                         "assignTALab username classNumber labSectionNumber")
+
+    def test_command_assignTALab_TAMax(self):
+        self.assertEqual(self.Project.command("assignTALab userName classNumber labSectionNumber"),
+                         "TA has been reached maximum assignment limit, TA not assigned")
+
+    def test_command_assignTALab_grader(self):
+        self.assertEqual(self.Project.command("assignTALAb userName classNumber labSectionNumber"),
+                         "The specified TA is a grader, TA not assigned")
+
 
     """
         When the viewInfo command is entered it takes one argument: 
@@ -405,10 +440,12 @@ class TestProject(TestCase):
         self.assertEqual(self.Project.command("editInfo email timmy123@uwm.edu"), "Email successfully updated")
 
     def test_command_editInfo_officeHours(self):
-        self.assertEqual(self.Project.command("editInfo ""officeHours start end daysOfWeek"))
+        self.assertEqual(self.Project.command("editInfo officeHours ""start end daysOfWeek"), "Office hours successfully"
+                                                                                            "updated")
 
     def test_command_editInfo_address(self):
-        self.assertEqual(self.Project.command("editInfo ""address 6785 Holly Lane Milwaukee WI 54389"))
+        self.assertEqual(self.Project.command("editInfo address ""6785 Holly Lane Milwaukee WI 54389"), "Address "
+                                                                                        "successfully updated")
 
     def test_command_editInfo_missingArgument(self):
         self.assertEqual(self.Project.command("editInfo homePhone"), "Your command is missing arguments, please enter"
