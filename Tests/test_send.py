@@ -5,8 +5,8 @@ class test_send(unittest.TestCase):
 
     def setUp(self):
         self.send1 = send("eonshik")
-        self.send2 = send("eonshik spykim2003", "-s")
-        self.send3 = send("-a")
+        self.send2 = send.sendMultiple("eonshik spykim2003", "-s")
+        self.send3 = send.sendAll("-a")
 
     def test_name(self):
         self.assertEqual(self.send1.getAccountName(), "eonshik")
@@ -18,13 +18,17 @@ class test_send(unittest.TestCase):
         self.assertEqual(self.send3.getAccountNames(), "-a")
 
     def test_speicific_option(self):
-        with self.assertRaises(ValueError):
-            self.send2()
+       self.assertRaises(send.multiple, "eonshik, spykim2003")
+       self.assertRaises(send.multiple, "eonshik, spykim2003")
+       self.assertRaises(send.multiple, "eonshik : spykim2003")
+       self.assertRaises(send.multiple, "eonshik ; spykim2003")
+       self.assertRaises(send.multiple, "eonshik . spykim2003")
+       self.assertRaises(send.multiple, "eonshikspykim2003")
 
 
 
 
 
 
-            if __name__ == '__main__':
+       if __name__ == '__main__':
                  unittest.main()

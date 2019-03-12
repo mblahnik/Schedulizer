@@ -7,7 +7,7 @@ class send():
     def send(self, accountName):
         pass
 
-    def send(self, accountNames, _s):
+    def sendMultiple(self, accountNames, _s):
         try:
             split  = accountNames.split(' ')
         except ValueError:
@@ -17,6 +17,6 @@ class send():
             print
             "Success"
 
-    def send(self, _a):
+    def send_all(self, _a):
         pass
 
