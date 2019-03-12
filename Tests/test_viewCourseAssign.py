@@ -11,5 +11,6 @@ class test_ViewCourseAssign(unittest.TestCase):
         self.assertTrue(self.view in instructor.displayCourses())
 
 
+
 if __name__ == '__main__':
     unittest.main()

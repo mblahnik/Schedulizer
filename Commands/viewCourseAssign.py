@@ -1,4 +1,3 @@
-
 class viewCourseAssign():
 
     def viewCourseAssign(self):
