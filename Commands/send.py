@@ -9,7 +9,7 @@ class send():
 
     def send(self, accountNames, _s):
         try:
-            split  = accountNames.split(" ")
+            split  = accountNames.split(' ')
         except ValueError:
             print
             "Failure"
