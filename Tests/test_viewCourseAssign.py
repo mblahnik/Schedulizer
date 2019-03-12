@@ -6,7 +6,7 @@ from instructor import instructor
 class test_ViewCourseAssign(unittest.TestCase):
 
     def setUp(self):
-        self.send1 = viewCourseAssign.viewCourseAssign()
+        self.view = viewCourseAssign.viewCourseAssign()
 
     def test_instructor_can_view(self):
         self.assertEqual(self.view, instructor.displayAssignments())
