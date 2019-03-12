@@ -4,7 +4,7 @@ from Commands import send
 class test_send(unittest.TestCase):
 
     def setUp(self):
-        self.send1 = send("eonshik")
+        self.send1 = send.send("eonshik")
         self.send2 = send.sendMultiple("eonshik spykim2003", "-s")
         self.send3 = send.sendAll("-a")
 
