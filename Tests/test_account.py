@@ -54,7 +54,6 @@ class TestAccount(TestCase):
         self.assertEqual(self.Account1.accountInfo["password"], "goodPassword")
 
         with self.assertRaises(ValueError):
-            self.Account1.setInfo("title", 1)
             self.Account1.setInfo("height", "5'5")
 
     def test_getInfo(self):
