@@ -1,7 +1,7 @@
 class sendHelper():
 
-    def createMessage():
+    def createMessage(self):
         pass
 
-    def sendMessage():
+    def sendMessage(self):
         pass

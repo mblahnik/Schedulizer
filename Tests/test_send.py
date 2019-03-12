@@ -9,10 +9,10 @@ class test_send(unittest.TestCase):
         self.send3 = test_send(self, "-a")
 
     def test_name(self):
-        self.assertEqual(self.send1.getName(), "eonshik")
+        self.assertEqual(self.send1.getAccountName(), "eonshik")
 
     def test_multiple_names(self):
-        self.assertEqual(self.send2.getName(), "eonshik spykim2003")
+        self.assertEqual(self.send2.getAccountNames(), "eonshik spykim2003")
     def test_contains_(self):
         self.assertcontains(send3, "-a")
 
