@@ -19,12 +19,12 @@ class test_send(unittest.TestCase):
         self.assertEqual(self.send3.getAccountNames(), "-a")
 
     def test_speicific_option(self):
-        self.assertRaises(send.multiple, "eonshik, spykim2003")
-        self.assertRaises(send.multiple, "eonshik, spykim2003")
-        self.assertRaises(send.multiple, "eonshik : spykim2003")
-        self.assertRaises(send.multiple, "eonshik ; spykim2003")
-        self.assertRaises(send.multiple, "eonshik . spykim2003")
-        self.assertRaises(send.multiple, "eonshikspykim2003")
+       self.assertRaises(send.multiple, "eonshik, spykim2003")
+       self.assertRaises(send.multiple, "eonshik, spykim2003")
+       self.assertRaises(send.multiple, "eonshik : spykim2003")
+       self.assertRaises(send.multiple, "eonshik ; spykim2003")
+       self.assertRaises(send.multiple, "eonshik . spykim2003")
+       self.assertRaises(send.multiple, "eonshikspykim2003")
 
 
 
