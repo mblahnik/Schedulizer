@@ -4,6 +4,7 @@ from instructor import instructor
 from teachingAssistant import teachingAssistant
 from Directory import Directory
 
+
 class MyTestCase(unittest.TestCase):
 
     def setUp(self):

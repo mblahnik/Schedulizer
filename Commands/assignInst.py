@@ -3,3 +3,4 @@ from Course import Course
 
 
 def assignInst(instructor, course):
+    return 0
