@@ -3,6 +3,7 @@ from Commands import createAccount
 from instructor import instructor
 from Directory import Directory
 
+
 class MyTestCase(unittest.TestCase):
     def setUp(self):
         self.Instructor1 = instructor("Bob")
