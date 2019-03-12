@@ -4,6 +4,7 @@ class account():
         self.accountName = accountName
         self.accountInfo = {
             "address": "",
+            "password": "password",
             "Home Phone": "",
             "title": 0,
             "Email": "",
