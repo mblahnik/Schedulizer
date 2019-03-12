@@ -1,5 +1,5 @@
 
-#import sendHelper
+import sendHelper
 
 
 class send():
@@ -7,9 +7,16 @@ class send():
     def send(self, accountName):
         pass
 
-    def send(self, accountNames, _s):
-        pass
+    def sendMultiple(self, accountNames, _s):
+        try:
+            split  = accountNames.split(' ')
+        except ValueError:
+            print
+            "Failure"
+        else:
+            print
+            "Success"
 
-    def send(self, _a):
+    def send_all(self, _a):
         pass
 
