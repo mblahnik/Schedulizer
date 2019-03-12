@@ -13,10 +13,11 @@ class teachingAssistant(instructor):
         super().__init__(name)
         self.accountInfo["title"] = 1
         self.labs = []
-        self.accountInfo["Labs"] = self.courses
+        self.accountInfo["Labs"] = self.labs
+        self.graderStatus = False
 
     def addlab(self, newLab):
-        self.accountInfo["Labs"] = self.courses.append(newLab)
+        self.accountInfo["Labs"] = self.labs.append(newLab)
 
     def displayCourses(self):
         for entry in self.labs:
