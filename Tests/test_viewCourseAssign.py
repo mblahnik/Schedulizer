@@ -9,7 +9,7 @@ class test_ViewCourseAssign(unittest.TestCase):
         self.view = viewCourseAssign(self)
 
     def test_instructor_can_view(self):
-        self.assertTrue(self.view in instructor.displayCourses())
+        self.assertTrue(self.view in instructor.displayAssignments())
 
 
 if __name__ == '__main__':
