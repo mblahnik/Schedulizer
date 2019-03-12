@@ -1,5 +1,5 @@
 class EditHelper():
-
+    @static_method
     def updateHPhone(self, user, num):
         pass
 
