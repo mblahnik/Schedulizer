@@ -20,8 +20,6 @@ class account():
         self.accountName = newName
 
     def setInfo(self, info, newInfo):
-        if info == "title":
-            raise(ValueError("Cannot change title"))
         if info in self.accountInfo:
             self.accountInfo[info] = newInfo
         else:
