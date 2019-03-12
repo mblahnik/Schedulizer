@@ -14,7 +14,7 @@ class test_send(unittest.TestCase):
     def test_multiple_names(self):
         self.assertEqual(self.send2.getAccountNames(), "eonshik spykim2003")
     def test_contains_(self):
-        self.assertcontains(send3, "-a")
+        self.assertcontains(self.send3, "-a")
 
 
 if __name__ == '__main__':
