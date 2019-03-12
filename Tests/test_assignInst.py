@@ -1,5 +1,7 @@
 import unittest
-
+from Commands import assignInst
+from Course import Course
+from teachingAssistant import teachingAssistant
 
 class MyTestCase(unittest.TestCase):
     def test_something(self):

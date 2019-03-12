@@ -1,4 +1,6 @@
-from instructor import instructor
-from Course import Course
 
-def assignInst(instructor, course):
+class assignInst():
+
+    def assignInst(self, classNumber, instructorUserName):
+        pass
+
