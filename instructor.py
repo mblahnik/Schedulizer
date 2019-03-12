@@ -16,12 +16,17 @@ class instructor(account):
         self.accountInfo["title"] = 2
         self.courses = []
         self.accountInfo["Courses"] = self.courses
+        self.assignments = []
 
     def addcourse(self, newCourse):
         self.accountInfo["Courses"] = self.courses.append(newCourse)
 
     def displayCourses(self):
         for entry in self.courses:
+            print(entry)
+
+    def displayAssignments(self):
+        for entry in self.assignments:
             print(entry)
 
 
