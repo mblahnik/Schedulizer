@@ -1,4 +1,4 @@
-class sendHelper2():
+class sendHelper():
 
     def createMessage(self):
         pass
