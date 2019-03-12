@@ -7,7 +7,8 @@ class Course():
             "name": "",
             "Meeting days": "",
             "Start Time": 0000,
-            "End time": 0000
+            "End time": 0000,
+            "Labs": []
         }
 
     def getNumber(self):
