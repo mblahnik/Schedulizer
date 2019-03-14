@@ -1,4 +1,5 @@
 class account():
+    accountName = ""
 
     def __init__(self, accountName=""):
         self.accountName = accountName

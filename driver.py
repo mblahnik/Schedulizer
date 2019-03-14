@@ -34,3 +34,5 @@ while(mainMenu):
         print("now here")
     elif(command[0].lower() == "createlab"):
         print("now here")
+    else:
+        print(command[0] + " is an unsupported command")
