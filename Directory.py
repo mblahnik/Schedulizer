@@ -13,8 +13,7 @@ class Directory():
     def isEmpty(self):
         return None
 
-    def getAccount(self):
-        return None
+    def getAccount(self, accountName):
 
     def size(self):
         return None
