@@ -1,7 +1,9 @@
+from account import account
+
 class Directory():
 
     def __init__(self):
-        self.data = []
+        self.data = [account]
         self.manyItems = 0
 
     def insert(self, newAccount):
@@ -13,7 +15,9 @@ class Directory():
     def isEmpty(self):
         return None
 
-    def getAccount(self, accountName):
-
+    def getAccount(self, account):
+        for i in self.data:
+            if i.accountName == account:
+                return i
     def size(self):
         return None
