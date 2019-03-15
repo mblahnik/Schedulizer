@@ -12,3 +12,5 @@ def login(account, password, Directory):
     tempaccount = Directory.getAccount(account)
     if password == tempaccount.accountInfo["password"] == password:
         return account
+    else:
+        raise ValueError("incorrect password")

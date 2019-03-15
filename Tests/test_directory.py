@@ -1,46 +1,47 @@
 from unittest import TestCase
 from Directory import Directory
 from account import account
-
+from teachingAssistant import  teachingAssistant
+from instructor import  instructor
 
 class TestDirectory(TestCase):
 
     def setUp(self):
         self.Directory1 = Directory()
         self.Directory2 = Directory()
-        self.Directory2.data.append("firstAccount")
-        self.Directory2.data.append("secondAccount")
-        self.Directory2.data.append("lastAccount")
+        self.account1 = instructor("firstAccount")
+        self.account2 = teachingAssistant("secondAccount")
+        self.account3 = instructor("lastAccount")
+        self.Directory2.data.append(self.account1)
+        self.Directory2.data.append(self.account2)
+        self.Directory2.data.append(self.account3)
         self.Directory2.manyItems = 3
-        self.Account1 = account()
 
     def test_insert(self):
         self.assertEqual(len(self.Directory1.data), 0)
         self.assertEqual(self.Directory1.manyItems, 0)
 
-        self.Direcotry1.insert("newAccount")
+        self.Directory1.insert(self.account1)
 
-        self.assertEqual(self.Directory1.data[0], "newAccount")
+        self.assertEqual(self.Directory1.data[0], self.account1)
         self.assertEqual(self.Directory1.manyItems, 1)
 
-        self.Directory1.insert("nextAccount")
+        self.Directory1.insert(self.account2)
 
-        self.assertEqual(self.Directory1.data[1], "nextAccount")
+        self.assertEqual(self.Directory1.data[1], self.account2)
         self.assertEqual(self.Directory1.manyItems, 2)
-        self.assertEqual(self.Directory1.data[0], "newAccount")
+        self.assertEqual(self.Directory1.data[0], self.account1)
 
-        self.Directory1.insert("lastAccount")
+        self.Directory1.insert(self.account3)
 
-        self.assertEqual(self.Directory1.data[2], "lastAccount")
+        self.assertEqual(self.Directory1.data[2], self.account3)
         self.assertEqual(self.Directory1.manyItems, 3)
-        self.assertEqual(self.Directory1.data[0], "newAccount")
-        self.assertEqual(self.Directory1.data[1], "nextAccount")
+        self.assertEqual(self.Directory1.data[0], self.account1)
+        self.assertEqual(self.Directory1.data[1], self.account2)
 
         #Should not be able to insert an account that already exists
         with self.assertRaises(ValueError):
-            self.Directory1.insert("newAccount")
-            self.Directory1.insert("nextAccount")
-            self.Directory1.insert("lastAccount")
+            self.Directory1.insert(self.account1)
 
     def test_remove(self):
         self.assertEqual(len(self.Directory2.data), 3)
@@ -74,13 +75,13 @@ class TestDirectory(TestCase):
     def test_getAccount(self):
         #should not be able to get an account that doesn't exist
         with self.assertRaises(ValueError):
-            self.account1 = self.Directory1.getAccount("firstAccount")
+            self.account4 = self.Directory1.getAccount("firstAccount")
 
         self.assertEqual(self.Directory2.manyItems, 3)
 
-        self.account1 = self.Directory2.getAccount("firstAccount")
+        self.account4 = self.Directory2.getAccount("firstAccount")
 
-        self.assertEqual(self.account1.accoutName, "firstAccount")
+        self.assertEqual(self.account4, self.account1)
 
         self.assertEqual(self.Directory2.manyItems, 3)
 

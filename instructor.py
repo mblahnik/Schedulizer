@@ -9,6 +9,7 @@ Instructors can:
 -View Course assignments 
 """
 
+
 class instructor(account):
 
     def __init__(self, name=""):

@@ -2,6 +2,8 @@ from account import account
 from Directory import Directory
 from instructor import instructor
 from Commands import login
+
+
 directory = Directory()
 
 """
@@ -11,12 +13,11 @@ type it in correctly
 
 """
 admin = instructor("admin")
-admin.accountInfo["password"] = "password"
-directory.data.append(admin)
+directory.insert(admin)
 
 currentUser = account
-currentUserTitle = 0
 mainMenu = True
+
 
 while(mainMenu):
     userInput = input("Please enter a command: ")
@@ -24,15 +25,22 @@ while(mainMenu):
     command = userInput.split(' ')
 
     if(command[0].lower() == "login"):
-        currentUser = login.login(command[1], command[2], directory)
-        print("currentuser is " + currentUser)
+        try:
+            currentUser = login.login(command[1], command[2], directory)
+            print("Now logged in as " + currentUser)
+        except ValueError as error:
+            print(error)
     elif(command[0].lower() == "logout"):
-        print("now here")
+        currentUser = account
+        print("Succeffuly logged out")
     elif(command[0].lower() == "createaccount"):
         print("now here")
     elif(command[0].lower() == "createlab"):
         print("now here")
     elif(command[0].lower() == "createlab"):
         print("now here")
+    elif (command[0].lower() == "exit"):
+        print("Goodbye")
+        mainMenu = False
     else:
         print(command[0] + " is an unsupported command")

@@ -1,11 +1,11 @@
 import unittest
-from Tests.test_instructor import TestInstructor
+from Tests.test_directory import TestDirectory
 def main():
     """Runs the unit tests"""
 
     suite = unittest.TestSuite()
 
-    suite.addTests(unittest.makeSuite(TestInstructor))
+    suite.addTests(unittest.makeSuite(TestDirectory))
 
     result = unittest.TextTestRunner(verbosity=1).run(suite)
 
