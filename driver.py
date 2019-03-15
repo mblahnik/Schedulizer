@@ -15,32 +15,37 @@ admin = instructor("admin")
 admin.setInfo("title", 4)
 directory.insert(admin)
 
-currentUser = account
+currentUser = account()
+currentUserTitle = currentUser.getInfo("title")
 mainMenu = True
 
 
-while(mainMenu):
+while mainMenu:
     userInput = input("Please enter a command: ")
 
     command = userInput.split(' ')
 
-    if(command[0].lower() == "login"):
+    if command[0].lower() == "login":
         command.pop(0)
         try:
             currentUser = login.login(command, directory)
+            currentUserTitle = currentUser.getInfo("title")
             print("Now logged in as " + str(currentUser))
         except ValueError as error:
             print(error)
-    elif(command[0].lower() == "logout"):
-        currentUser = account
+    elif command[0].lower() == "logout":
+        currentUser = account()
+        currentUserTitle = currentUser.getInfo("title")
         print("Succeffuly logged out")
-    elif(command[0].lower() == "createaccount"):
-        print("now here")
-    elif(command[0].lower() == "createlab"):
-        print("now here")
-    elif(command[0].lower() == "createlab"):
-        print("now here")
-    elif (command[0].lower() == "exit"):
+    elif command[0].lower() == "createaccount":
+        if currentUserTitle < 4:
+            print("Access denied")
+
+    elif command[0].lower() == "createlab":
+        print("create a lab")
+    elif command[0].lower() == "createcourse" :
+        print("create a course")
+    elif command[0].lower() == "exit":
         print("Goodbye")
         mainMenu = False
     else:
