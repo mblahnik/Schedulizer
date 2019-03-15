@@ -15,14 +15,19 @@ class MyTestCase(unittest.TestCase):
         self.TA.accountInfo["password"] = "54321"
         self.Directory.data.append(self.Instructor)
         self.Directory.data.append(self.TA)
+        self.command1 = ["Mr.Sparkle", "12345"]
+        self.command2 = ["Myopic Myron", "54321"]
+        self.command3 = ["Mr.Sparkle", "444444"]
+        self.command4 = ["I", "Dont", "know"]
+        self.command5 = ["I"]
+
 
     def test_login(self):
-        self.assertEqual(self.Instructor, login.login("Mr.Sparkle", "12345", self.Directory))
-        self.assertEqual(self.TA, login.login("Myopic Myron", "54321", self.Directory))
+        self.assertEqual(self.Instructor, login.login(self.command1, self.Directory))
+        self.assertEqual(self.TA, login.login(self.command2, self.Directory))
 
-        self.assertIsNone(login.login("Mr.Sparkle", "55555", self.Directory))
-
-        self.assertIsNone(login.login("Bob", "12345", self.Directory))
+        with self.assertRaises(ValueError):
+            login.login(self.command3, self.Directory)
 
 
 if __name__ == '__main__':

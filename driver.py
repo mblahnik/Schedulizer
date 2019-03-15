@@ -10,9 +10,9 @@ directory = Directory()
 This is my fake command prompt to maybe work with until we get a real one. Since Accounts that are
 created won't be saved just login with the command "login admin password". Login works if you
 type it in correctly
-
 """
 admin = instructor("admin")
+admin.setInfo("title", 4)
 directory.insert(admin)
 
 currentUser = account
@@ -25,9 +25,10 @@ while(mainMenu):
     command = userInput.split(' ')
 
     if(command[0].lower() == "login"):
+        command.pop(0)
         try:
-            currentUser = login.login(command[1], command[2], directory)
-            print("Now logged in as " + currentUser)
+            currentUser = login.login(command, directory)
+            print("Now logged in as " + str(currentUser))
         except ValueError as error:
             print(error)
     elif(command[0].lower() == "logout"):

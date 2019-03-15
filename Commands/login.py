@@ -8,9 +8,12 @@ and user title can be updated.
 """
 
 
-def login(account, password, Directory):
-    tempaccount = Directory.getAccount(account)
-    if password == tempaccount.accountInfo["password"] == password:
-        return account
+def login(command, Directory):
+    if len(command) < 2 or len(command) > 2:
+        raise ValueError("login takes two arguments, Username and Password")
+
+    tempaccount = Directory.getAccount(command[0])
+    if command[1] == tempaccount.accountInfo["password"]:
+        return tempaccount
     else:
         raise ValueError("incorrect password")
